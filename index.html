@@ -31,7 +31,7 @@
       position:sticky;
       top:0;
       z-index:20;
-      background:rgba(244,247,241,.92);
+      background:rgba(244,247,241,.94);
       backdrop-filter:blur(14px);
       border-bottom:1px solid rgba(36,75,53,.12);
     }
@@ -39,7 +39,7 @@
     .topo{
       max-width:1150px;
       margin:auto;
-      padding:16px;
+      padding:14px 16px;
       display:flex;
       align-items:center;
       gap:14px;
@@ -93,7 +93,7 @@
 
     .filters{
       display:grid;
-      grid-template-columns:1.4fr 1fr 1fr 1fr;
+      grid-template-columns:1.5fr 1fr 1fr 1fr;
       gap:10px;
       margin:18px 0;
     }
@@ -126,7 +126,7 @@
 
     .foto{
       width:100%;
-      height:230px;
+      height:235px;
       object-fit:cover;
       background:#dfe8dc;
     }
@@ -240,11 +240,12 @@
     @media(max-width:620px){
       .topo{padding:12px}
       .logo{width:50px;height:50px}
+      .brand h1{font-size:17px}
       .hero{padding:20px;border-radius:22px}
       .hero h2{font-size:23px}
       .filters{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
-      .foto{height:250px}
+      .foto{height:260px}
       .botoes{grid-template-columns:1fr}
     }
   </style>
@@ -256,7 +257,7 @@
     <img class="logo" src="img/logo.png" alt="Logo da loja">
     <div class="brand">
       <h1>Sua Loja de Kokedamas</h1>
-      <p>Catálogo rápido para atendimento e vendas</p>
+      <p>Catálogo para atendimento rápido</p>
     </div>
   </div>
 </header>
@@ -265,17 +266,16 @@
 
   <section class="hero">
     <h2>Catálogo de Kokedamas e Terrários</h2>
-    <p>Escolha uma peça, copie a mensagem pronta e envie ao cliente com valor, cuidados e gatilho de venda.</p>
+    <p>Pesquise, filtre por categoria, copie a mensagem pronta e envie ao cliente.</p>
   </section>
 
   <section class="filters">
-    <input id="pesquisa" type="search" placeholder="Pesquisar por planta, tipo ou valor...">
+    <input id="pesquisa" type="search" placeholder="Pesquisar por nome, planta, tipo ou valor...">
 
     <select id="categoria">
       <option value="">Todas as categorias</option>
       <option value="Kokedama">Kokedamas</option>
       <option value="Terrário">Terrários</option>
-      <option value="Kit Presente">Kit Presente</option>
     </select>
 
     <select id="tamanho">
@@ -303,84 +303,455 @@
 <script>
   const produtos = [
     {
-      nome: "Kokedama de Jiboia",
+      nome: "Kokedama de Aglaonema",
       categoria: "Kokedama",
-      tamanho: "Pequeno",
-      preco: 45,
-      planta: "Jiboia",
-      cuidados: "Meia sombra, rega por imersão 1 a 2 vezes por semana.",
-      descricao: "Peça delicada, resistente e perfeita para ambientes internos.",
-      foto: "img/kokedama-jiboia.jpg"
+      tamanho: "Médio",
+      preco: 85,
+      planta: "Aglaonema",
+      cuidados: "Luz indireta, rega moderada e ambiente interno iluminado.",
+      descricao: "Planta elegante, resistente e perfeita para decorar ambientes internos.",
+      foto: "img/aglaonema.JPG"
+    },
+    {
+      nome: "Kokedama de Aglaonema Especial",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Aglaonema",
+      cuidados: "Luz indireta, evitar sol forte e regar quando o musgo estiver seco.",
+      descricao: "Modelo charmoso com folhagem ornamental de alto valor decorativo.",
+      foto: "img/aglaonema2.JPG"
     },
     {
       nome: "Kokedama de Antúrio",
       categoria: "Kokedama",
       tamanho: "Médio",
-      preco: 75,
+      preco: 90,
       planta: "Antúrio",
-      cuidados: "Luz indireta, rega moderada e ambiente ventilado.",
-      descricao: "Opção elegante com floração charmosa para decorar ou presentear.",
-      foto: "img/kokedama-anturio.jpg"
+      cuidados: "Luz indireta, rega moderada e boa ventilação.",
+      descricao: "Opção elegante com folhagem marcante e presença sofisticada.",
+      foto: "img/anturio.JPG"
     },
     {
-      nome: "Kokedama de Samambaia",
+      nome: "Kokedama de Antúrio para Estante",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 95,
+      planta: "Antúrio",
+      cuidados: "Manter em local iluminado, sem sol direto, com rega por imersão.",
+      descricao: "Ideal para estantes, aparadores e espaços decorativos internos.",
+      foto: "img/anturio-estante.JPG"
+    },
+    {
+      nome: "Kokedama de Cordyline",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 80,
+      planta: "Cordyline",
+      cuidados: "Luz indireta intensa, regas moderadas e ambiente arejado.",
+      descricao: "Folhagem colorida que traz vida e contraste para a decoração.",
+      foto: "img/cordyline.JPG"
+    },
+    {
+      nome: "Kokedama de Cordyline Especial",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 85,
+      planta: "Cordyline",
+      cuidados: "Evitar sol forte, manter em local claro e regar sem encharcar.",
+      descricao: "Peça artesanal com visual vibrante e moderno.",
+      foto: "img/cordyline2.JPG"
+    },
+    {
+      nome: "Kokedama de Croton",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 78,
+      planta: "Croton",
+      cuidados: "Gosta de bastante claridade, rega moderada e ambiente ventilado.",
+      descricao: "Folhagem colorida, alegre e cheia de personalidade.",
+      foto: "img/croton.JPG"
+    },
+    {
+      nome: "Kokedama de Croton Especial",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 82,
+      planta: "Croton",
+      cuidados: "Manter em local claro, com pouca água e boa luminosidade.",
+      descricao: "Uma opção decorativa forte para quem ama plantas com cor.",
+      foto: "img/croton2.JPG"
+    },
+    {
+      nome: "Kokedama de Croton Brasileirinha",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 88,
+      planta: "Croton Brasileirinha",
+      cuidados: "Luz natural abundante, regas moderadas e sem encharcar.",
+      descricao: "Folhagem diferenciada com visual tropical e ornamental.",
+      foto: "img/crotonbrasileirinha.JPG"
+    },
+    {
+      nome: "Kokedama de Espada Raposa",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 75,
+      planta: "Espada Raposa",
+      cuidados: "Planta resistente, precisa de pouca água e aceita meia sombra.",
+      descricao: "Modelo resistente, moderno e fácil de cuidar.",
+      foto: "img/espada-raposa.JPG"
+    },
+    {
+      nome: "Kokedama de Espada de São Jorge",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 70,
+      planta: "Espada de São Jorge",
+      cuidados: "Pouca água, meia sombra ou luz indireta e manutenção simples.",
+      descricao: "Clássica, resistente e muito procurada para proteção e decoração.",
+      foto: "img/espadasaojorge.JPG"
+    },
+    {
+      nome: "Kokedama de Espada de São Jorge Especial",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 110,
+      planta: "Espada de São Jorge",
+      cuidados: "Regar pouco, manter em ambiente iluminado e evitar excesso de água.",
+      descricao: "Versão maior, com presença forte e acabamento artesanal.",
+      foto: "img/espadasaojorge6.JPG"
+    },
+    {
+      nome: "Kokedama de Jiboia",
+      categoria: "Kokedama",
+      tamanho: "Pequeno",
+      preco: 55,
+      planta: "Jiboia",
+      cuidados: "Meia sombra, rega por imersão 1 a 2 vezes por semana.",
+      descricao: "Queridinha dos ambientes internos, linda e fácil de cuidar.",
+      foto: "img/jiboia.JPG"
+    },
+    {
+      nome: "Kokedama de Jiboia Especial",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 65,
+      planta: "Jiboia",
+      cuidados: "Luz indireta, manter o musgo levemente úmido e evitar sol direto.",
+      descricao: "Peça versátil para pendurar, apoiar ou presentear.",
+      foto: "img/jiboia3.JPG"
+    },
+    {
+      nome: "Kokedama de Jiboia Grande",
       categoria: "Kokedama",
       tamanho: "Grande",
       preco: 120,
-      planta: "Samambaia",
-      cuidados: "Ambiente iluminado sem sol direto, manter o substrato úmido.",
-      descricao: "Volume bonito, visual natural e ótimo impacto decorativo.",
-      foto: "img/kokedama-samambaia.jpg"
+      planta: "Jiboia",
+      cuidados: "Luz indireta, rega moderada e ambiente interno bem iluminado.",
+      descricao: "Modelo maior com visual marcante e ótimo efeito decorativo.",
+      foto: "img/jiboiagrande.JPG"
     },
     {
-      nome: "Terrário Fechado Mini",
-      categoria: "Terrário",
+      nome: "Kokedama de Maranta",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 85,
+      planta: "Maranta",
+      cuidados: "Luz indireta, umidade moderada e evitar sol direto.",
+      descricao: "Folhagem desenhada, delicada e muito ornamental.",
+      foto: "img/maranta.JPG"
+    },
+    {
+      nome: "Kokedama de Peperômia",
+      categoria: "Kokedama",
       tamanho: "Pequeno",
-      preco: 59,
-      planta: "Fitônia e musgos",
-      cuidados: "Luz indireta, abrir ocasionalmente se houver excesso de umidade.",
-      descricao: "Um pequeno jardim em vidro, prático e encantador.",
-      foto: "img/terrario-mini.jpg"
+      preco: 58,
+      planta: "Peperômia",
+      cuidados: "Luz indireta, pouca água e ambiente interno iluminado.",
+      descricao: "Compacta, charmosa e perfeita para pequenos espaços.",
+      foto: "img/peperomia.JPG"
     },
     {
-      nome: "Terrário de Suculentas",
+      nome: "Kokedama de Tradescância",
+      categoria: "Kokedama",
+      tamanho: "Pequeno",
+      preco: 55,
+      planta: "Tradescância",
+      cuidados: "Meia sombra, regas leves e boa luminosidade.",
+      descricao: "Planta pendente com visual delicado e crescimento bonito.",
+      foto: "img/tradescancia.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 90,
+      planta: "Zamioculca",
+      cuidados: "Pouca água, meia sombra e manutenção muito simples.",
+      descricao: "Resistente, sofisticada e perfeita para quem quer praticidade.",
+      foto: "img/zamioculca.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca Especial",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 95,
+      planta: "Zamioculca",
+      cuidados: "Regar pouco, evitar sol direto e manter em local claro.",
+      descricao: "Modelo elegante com ótimo acabamento para presente ou decoração.",
+      foto: "img/zamioculca5.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca para Estante",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 98,
+      planta: "Zamioculca",
+      cuidados: "Pouca água, luz indireta e ambiente interno.",
+      descricao: "Ideal para estantes, nichos, escritórios e aparadores.",
+      foto: "img/zamioculca-estante.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca Grande",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 135,
+      planta: "Zamioculca",
+      cuidados: "Regas espaçadas, luz indireta e fácil manutenção.",
+      descricao: "Peça grande, sofisticada e com alto valor percebido.",
+      foto: "img/zamioculca-grande3.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca Grande Premium",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 145,
+      planta: "Zamioculca",
+      cuidados: "Pouca água, meia sombra e evitar excesso de umidade.",
+      descricao: "Modelo premium para decoração elegante e presente especial.",
+      foto: "img/zamioculca-grande4.JPG"
+    },
+
+    {
+      nome: "Terrário Deserto",
       categoria: "Terrário",
       tamanho: "Médio",
       preco: 89,
-      planta: "Suculentas variadas",
+      planta: "Suculentas e elementos decorativos",
       cuidados: "Luz clara, pouca água e evitar excesso de umidade.",
-      descricao: "Visual moderno, baixa manutenção e ideal para mesa ou escritório.",
-      foto: "img/terrario-suculentas.jpg"
+      descricao: "Terrário com inspiração desértica, moderno e de baixa manutenção.",
+      foto: "img/deserto.JPG"
     },
     {
-      nome: "Terrário Premium",
+      nome: "Terrário Deserto Especial",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 95,
+      planta: "Suculentas e pedras naturais",
+      cuidados: "Ambiente claro, rega leve e espaçada.",
+      descricao: "Composição artesanal com visual seco, elegante e decorativo.",
+      foto: "img/deserto2.JPG"
+    },
+    {
+      nome: "Terrário Deserto Precioso",
       categoria: "Terrário",
       tamanho: "Grande",
-      preco: 149,
-      planta: "Mix de plantas tropicais",
-      cuidados: "Luz indireta, pouca manutenção e atenção à umidade interna.",
-      descricao: "Peça sofisticada para presente especial ou decoração premium.",
-      foto: "img/terrario-premium.jpg"
+      preco: 130,
+      planta: "Suculentas selecionadas",
+      cuidados: "Pouca água, bastante claridade e evitar sol forte direto.",
+      descricao: "Peça premium com acabamento delicado e presença marcante.",
+      foto: "img/desertoprecioso.JPG"
     },
     {
-      nome: "Kit Presente Verde",
-      categoria: "Kit Presente",
+      nome: "Terrário Deserto Precioso Especial",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 139,
+      planta: "Suculentas e decoração mineral",
+      cuidados: "Regar pouco, manter em local iluminado e sem encharcar.",
+      descricao: "Terrário sofisticado para decoração ou presente especial.",
+      foto: "img/desertoprecioso2.JPG"
+    },
+    {
+      nome: "Terrário Deserto Vivo",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 105,
+      planta: "Suculentas variadas",
+      cuidados: "Luz natural, pouca água e manutenção simples.",
+      descricao: "Mini paisagem viva com visual natural e encantador.",
+      foto: "img/desertovivo.JPG"
+    },
+    {
+      nome: "Terrário Deserto Vivo Especial",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 112,
+      planta: "Suculentas e pedras",
+      cuidados: "Regas leves e espaçadas, sempre em local claro.",
+      descricao: "Composição artesanal com equilíbrio entre natureza e decoração.",
+      foto: "img/desertovivo2.JPG"
+    },
+    {
+      nome: "Terrário Floresta",
+      categoria: "Terrário",
       tamanho: "Médio",
       preco: 99,
-      planta: "Kokedama + cartão",
-      cuidados: "Acompanha orientação personalizada de cuidados.",
-      descricao: "Presente pronto, afetivo e com apresentação especial.",
-      foto: "img/kit-presente.jpg"
+      planta: "Plantas tropicais e musgos",
+      cuidados: "Luz indireta, umidade equilibrada e evitar sol direto.",
+      descricao: "Um pequeno cenário verde inspirado na natureza tropical.",
+      foto: "img/floresta.JPG"
     },
     {
-      nome: "Kokedama de Orquídea",
-      categoria: "Kokedama",
+      nome: "Terrário Floresta Especial",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 125,
+      planta: "Musgos e plantas tropicais",
+      cuidados: "Luz indireta, abrir se houver excesso de umidade.",
+      descricao: "Terrário com visual vivo, denso e muito decorativo.",
+      foto: "img/floresta2.JPG"
+    },
+    {
+      nome: "Terrário Jardim Encantado",
+      categoria: "Terrário",
       tamanho: "Médio",
-      preco: 110,
-      planta: "Orquídea",
-      cuidados: "Luz indireta forte, rega controlada e boa ventilação.",
-      descricao: "Produto com alto valor percebido, ideal para datas especiais.",
-      foto: "img/kokedama-orquidea.jpg"
+      preco: 115,
+      planta: "Mix de plantas ornamentais",
+      cuidados: "Luz indireta e rega leve conforme necessidade.",
+      descricao: "Peça delicada com atmosfera lúdica e encantadora.",
+      foto: "img/jardimencantado.JPG"
+    },
+    {
+      nome: "Terrário Jardim Encantado Especial",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 140,
+      planta: "Plantas ornamentais e musgos",
+      cuidados: "Manter em luz indireta e observar a umidade interna.",
+      descricao: "Composição especial para presente afetivo e decoração fina.",
+      foto: "img/jardimencantado2.JPG"
+    },
+    {
+      nome: "Terrário Jardim Nevado",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 79,
+      planta: "Mini suculentas e decoração clara",
+      cuidados: "Luz clara, pouca água e local arejado.",
+      descricao: "Visual delicado, leve e perfeito para pequenos espaços.",
+      foto: "img/jardimnevado.JPG"
+    },
+    {
+      nome: "Terrário Jardim Nevado Especial",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 92,
+      planta: "Suculentas e pedras claras",
+      cuidados: "Regar pouco e manter em local bem iluminado.",
+      descricao: "Terrário com composição suave e acabamento elegante.",
+      foto: "img/jardimnevado2.JPG"
+    },
+    {
+      nome: "Terrário Jardim Nevado Premium",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 128,
+      planta: "Suculentas selecionadas",
+      cuidados: "Pouca água, boa luminosidade e evitar umidade excessiva.",
+      descricao: "Versão premium com maior impacto visual.",
+      foto: "img/jardimnevado3.JPG"
+    },
+    {
+      nome: "Terrário Meu Refúgio",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 105,
+      planta: "Plantas ornamentais",
+      cuidados: "Luz indireta, regas controladas e ambiente claro.",
+      descricao: "Um pequeno refúgio verde para trazer calma ao ambiente.",
+      foto: "img/meurefugio.JPG"
+    },
+    {
+      nome: "Terrário Meu Refúgio Especial",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 112,
+      planta: "Mix verde ornamental",
+      cuidados: "Evitar sol direto, manter em local iluminado.",
+      descricao: "Composição aconchegante e perfeita para presentear.",
+      foto: "img/meurefugio2.JPG"
+    },
+    {
+      nome: "Terrário Meu Refúgio Premium",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 145,
+      planta: "Plantas tropicais e musgos",
+      cuidados: "Luz indireta e controle da umidade interna.",
+      descricao: "Peça premium com visual natural e sofisticado.",
+      foto: "img/meurefugio3.JPG"
+    },
+    {
+      nome: "Terrário Mini Jardim",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 65,
+      planta: "Mini plantas ornamentais",
+      cuidados: "Luz indireta e pouca água.",
+      descricao: "Compacto, delicado e ótimo para lembrancinhas ou mesa.",
+      foto: "img/minijardim.JPG"
+    },
+    {
+      nome: "Terrário Mini Jardim Especial",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 72,
+      planta: "Mini suculentas",
+      cuidados: "Ambiente claro, rega leve e espaçada.",
+      descricao: "Pequeno no tamanho, grande no charme.",
+      foto: "img/minijardim2.JPG"
+    },
+    {
+      nome: "Terrário Oásis",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 98,
+      planta: "Suculentas e elementos naturais",
+      cuidados: "Luz clara, pouca água e manutenção simples.",
+      descricao: "Composição inspirada em um pequeno oásis natural.",
+      foto: "img/oasis.JPG"
+    },
+    {
+      nome: "Terrário Oásis Especial",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 125,
+      planta: "Suculentas variadas",
+      cuidados: "Regar pouco, manter em local claro e evitar encharcar.",
+      descricao: "Terrário elegante, ideal para decoração e presente.",
+      foto: "img/oasis2.JPG"
+    },
+    {
+      nome: "Terrário Vida Vertical",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 118,
+      planta: "Plantas ornamentais verticais",
+      cuidados: "Luz indireta, umidade equilibrada e ambiente iluminado.",
+      descricao: "Design vertical moderno com visual diferenciado.",
+      foto: "img/vidavertical.JPG"
+    },
+    {
+      nome: "Terrário Vida Vertical Especial",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 150,
+      planta: "Plantas ornamentais selecionadas",
+      cuidados: "Luz indireta, rega moderada e atenção à umidade.",
+      descricao: "Peça de destaque para ambientes sofisticados.",
+      foto: "img/vidavertical2.JPG"
     }
   ];
 
@@ -409,17 +780,20 @@
     return `Oi! Tenho uma opção linda disponível para você 🌿
 
 ${produto.nome}
-Planta: ${produto.planta}
 Categoria: ${produto.categoria}
 Tamanho: ${produto.tamanho}
 Valor: ${dinheiro(produto.preco)}
 
+Descrição:
 ${produto.descricao}
+
+Composição/Planta:
+${produto.planta}
 
 Cuidados:
 ${produto.cuidados}
 
-Essa peça é feita artesanalmente e temos poucas unidades disponíveis. Posso separar essa para você?`;
+Essa peça é artesanal e temos poucas unidades disponíveis. Posso separar essa para você?`;
   }
 
   async function copiarMensagem(produto){
@@ -438,7 +812,8 @@ Essa peça é feita artesanalmente e temos poucas unidades disponíveis. Posso s
 
       mostrarToast("Imagem copiada!");
     }catch(erro){
-      await navigator.clipboard.writeText(location.origin + "/" + produto.foto);
+      const linkImagem = new URL(produto.foto, window.location.href).href;
+      await navigator.clipboard.writeText(linkImagem);
       mostrarToast("Link da imagem copiado!");
     }
   }
@@ -481,7 +856,7 @@ Essa peça é feita artesanalmente e temos poucas unidades disponíveis. Posso s
       card.className = "card";
 
       card.innerHTML = `
-        <img class="foto" src="${produto.foto}" alt="${produto.nome}" onerror="this.src='https://placehold.co/600x450/e8f1e5/244b35?text=Foto+do+Produto'">
+        <img class="foto" src="${produto.foto}" alt="${produto.nome}" onerror="this.src='https://placehold.co/600x450/e8f1e5/244b35?text=Foto+nao+encontrada'">
 
         <div class="content">
           <span class="tag">${produto.categoria} • ${produto.tamanho}</span>
@@ -489,7 +864,7 @@ Essa peça é feita artesanalmente e temos poucas unidades disponíveis. Posso s
           <p class="desc">${produto.descricao}</p>
 
           <div class="info">
-            <div><strong>Planta:</strong> ${produto.planta}</div>
+            <div><strong>Planta/Composição:</strong> ${produto.planta}</div>
             <div><strong>Cuidados:</strong> ${produto.cuidados}</div>
           </div>
 
