@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Catálogo Kokedamas e Terrários</title>
+
+  <style>
+    :root{
+      --green:#244b35;
+      --green2:#3f7656;
+      --soft:#f4f7f1;
+      --card:#ffffff;
+      --text:#1f2a24;
+      --muted:#66756b;
+      --gold:#c89f5d;
+      --shadow:0 12px 35px rgba(31,42,36,.12);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#f7faf4,#edf4eb);
+      color:var(--text);
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(244,247,241,.92);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(36,75,53,.12);
+    }
+
+    .topo{
+      max-width:1150px;
+      margin:auto;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .logo{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      background:var(--green);
+      object-fit:cover;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:20px;
+      color:var(--green);
+    }
+
+    .brand p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .container{
+      max-width:1150px;
+      margin:auto;
+      padding:18px 16px 40px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:white;
+      border-radius:28px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+
+    .hero h2{
+      margin:0 0 8px;
+      font-size:28px;
+    }
+
+    .hero p{
+      margin:0;
+      color:#e8f2e8;
+      line-height:1.5;
+    }
+
+    .filters{
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr 1fr;
+      gap:10px;
+      margin:18px 0;
+    }
+
+    input,select{
+      width:100%;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(36,75,53,.18);
+      background:white;
+      font-size:15px;
+      outline:none;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(36,75,53,.08);
+      display:flex;
+      flex-direction:column;
+    }
+
+    .foto{
+      width:100%;
+      height:230px;
+      object-fit:cover;
+      background:#dfe8dc;
+    }
+
+    .content{
+      padding:16px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#eaf2e7;
+      color:var(--green);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:10px;
+      width:max-content;
+    }
+
+    .card h3{
+      margin:0 0 6px;
+      font-size:19px;
+      color:var(--green);
+    }
+
+    .desc{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+      margin:0 0 12px;
+    }
+
+    .info{
+      display:grid;
+      gap:7px;
+      margin-bottom:14px;
+      font-size:14px;
+    }
+
+    .preco{
+      font-size:24px;
+      font-weight:bold;
+      color:var(--green);
+      margin-top:auto;
+    }
+
+    .botoes{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+      margin-top:14px;
+    }
+
+    button{
+      border:0;
+      border-radius:15px;
+      padding:13px 10px;
+      font-weight:bold;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    .btn-msg{
+      background:var(--green);
+      color:white;
+    }
+
+    .btn-img{
+      background:#efe7d8;
+      color:#6b4c1f;
+    }
+
+    .empty{
+      text-align:center;
+      padding:35px;
+      color:var(--muted);
+      display:none;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:22px;
+      transform:translateX(-50%);
+      background:var(--green);
+      color:white;
+      padding:13px 18px;
+      border-radius:999px;
+      box-shadow:var(--shadow);
+      opacity:0;
+      pointer-events:none;
+      transition:.3s;
+      z-index:99;
+      font-size:14px;
+    }
+
+    .toast.show{
+      opacity:1;
+      bottom:34px;
+    }
+
+    @media(max-width:900px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .filters{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:620px){
+      .topo{padding:12px}
+      .logo{width:50px;height:50px}
+      .hero{padding:20px;border-radius:22px}
+      .hero h2{font-size:23px}
+      .filters{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .foto{height:250px}
+      .botoes{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topo">
+    <img class="logo" src="img/logo.png" alt="Logo da loja">
+    <div class="brand">
+      <h1>Sua Loja de Kokedamas</h1>
+      <p>Catálogo rápido para atendimento e vendas</p>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h2>Catálogo de Kokedamas e Terrários</h2>
+    <p>Escolha uma peça, copie a mensagem pronta e envie ao cliente com valor, cuidados e gatilho de venda.</p>
+  </section>
+
+  <section class="filters">
+    <input id="pesquisa" type="search" placeholder="Pesquisar por planta, tipo ou valor...">
+
+    <select id="categoria">
+      <option value="">Todas as categorias</option>
+      <option value="Kokedama">Kokedamas</option>
+      <option value="Terrário">Terrários</option>
+      <option value="Kit Presente">Kit Presente</option>
+    </select>
+
+    <select id="tamanho">
+      <option value="">Todos os tamanhos</option>
+      <option value="Pequeno">Pequeno</option>
+      <option value="Médio">Médio</option>
+      <option value="Grande">Grande</option>
+    </select>
+
+    <select id="preco">
+      <option value="">Todos os valores</option>
+      <option value="0-50">Até R$ 50</option>
+      <option value="51-100">R$ 51 a R$ 100</option>
+      <option value="101-999">Acima de R$ 100</option>
+    </select>
+  </section>
+
+  <section id="catalogo" class="grid"></section>
+  <div id="empty" class="empty">Nenhum produto encontrado.</div>
+
+</main>
+
+<div id="toast" class="toast">Copiado!</div>
+
+<script>
+  const produtos = [
+    {
+      nome: "Kokedama de Jiboia",
+      categoria: "Kokedama",
+      tamanho: "Pequeno",
+      preco: 45,
+      planta: "Jiboia",
+      cuidados: "Meia sombra, rega por imersão 1 a 2 vezes por semana.",
+      descricao: "Peça delicada, resistente e perfeita para ambientes internos.",
+      foto: "img/kokedama-jiboia.jpg"
+    },
+    {
+      nome: "Kokedama de Antúrio",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 75,
+      planta: "Antúrio",
+      cuidados: "Luz indireta, rega moderada e ambiente ventilado.",
+      descricao: "Opção elegante com floração charmosa para decorar ou presentear.",
+      foto: "img/kokedama-anturio.jpg"
+    },
+    {
+      nome: "Kokedama de Samambaia",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 120,
+      planta: "Samambaia",
+      cuidados: "Ambiente iluminado sem sol direto, manter o substrato úmido.",
+      descricao: "Volume bonito, visual natural e ótimo impacto decorativo.",
+      foto: "img/kokedama-samambaia.jpg"
+    },
+    {
+      nome: "Terrário Fechado Mini",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 59,
+      planta: "Fitônia e musgos",
+      cuidados: "Luz indireta, abrir ocasionalmente se houver excesso de umidade.",
+      descricao: "Um pequeno jardim em vidro, prático e encantador.",
+      foto: "img/terrario-mini.jpg"
+    },
+    {
+      nome: "Terrário de Suculentas",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Suculentas variadas",
+      cuidados: "Luz clara, pouca água e evitar excesso de umidade.",
+      descricao: "Visual moderno, baixa manutenção e ideal para mesa ou escritório.",
+      foto: "img/terrario-suculentas.jpg"
+    },
+    {
+      nome: "Terrário Premium",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 149,
+      planta: "Mix de plantas tropicais",
+      cuidados: "Luz indireta, pouca manutenção e atenção à umidade interna.",
+      descricao: "Peça sofisticada para presente especial ou decoração premium.",
+      foto: "img/terrario-premium.jpg"
+    },
+    {
+      nome: "Kit Presente Verde",
+      categoria: "Kit Presente",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Kokedama + cartão",
+      cuidados: "Acompanha orientação personalizada de cuidados.",
+      descricao: "Presente pronto, afetivo e com apresentação especial.",
+      foto: "img/kit-presente.jpg"
+    },
+    {
+      nome: "Kokedama de Orquídea",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 110,
+      planta: "Orquídea",
+      cuidados: "Luz indireta forte, rega controlada e boa ventilação.",
+      descricao: "Produto com alto valor percebido, ideal para datas especiais.",
+      foto: "img/kokedama-orquidea.jpg"
+    }
+  ];
+
+  const catalogo = document.getElementById("catalogo");
+  const pesquisa = document.getElementById("pesquisa");
+  const categoria = document.getElementById("categoria");
+  const tamanho = document.getElementById("tamanho");
+  const preco = document.getElementById("preco");
+  const empty = document.getElementById("empty");
+  const toast = document.getElementById("toast");
+
+  function dinheiro(valor){
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  }
+
+  function mostrarToast(texto){
+    toast.textContent = texto;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1800);
+  }
+
+  function mensagemProduto(produto){
+    return `Oi! Tenho uma opção linda disponível para você 🌿
+
+${produto.nome}
+Planta: ${produto.planta}
+Categoria: ${produto.categoria}
+Tamanho: ${produto.tamanho}
+Valor: ${dinheiro(produto.preco)}
+
+${produto.descricao}
+
+Cuidados:
+${produto.cuidados}
+
+Essa peça é feita artesanalmente e temos poucas unidades disponíveis. Posso separar essa para você?`;
+  }
+
+  async function copiarMensagem(produto){
+    await navigator.clipboard.writeText(mensagemProduto(produto));
+    mostrarToast("Mensagem pronta copiada!");
+  }
+
+  async function copiarImagem(produto){
+    try{
+      const resposta = await fetch(produto.foto);
+      const blob = await resposta.blob();
+
+      await navigator.clipboard.write([
+        new ClipboardItem({ [blob.type]: blob })
+      ]);
+
+      mostrarToast("Imagem copiada!");
+    }catch(erro){
+      await navigator.clipboard.writeText(location.origin + "/" + produto.foto);
+      mostrarToast("Link da imagem copiado!");
+    }
+  }
+
+  function renderizar(){
+    const termo = pesquisa.value.toLowerCase().trim();
+    const cat = categoria.value;
+    const tam = tamanho.value;
+    const faixa = preco.value;
+
+    const filtrados = produtos.filter(produto => {
+      const textoProduto = `
+        ${produto.nome}
+        ${produto.categoria}
+        ${produto.tamanho}
+        ${produto.planta}
+        ${produto.preco}
+        ${produto.descricao}
+      `.toLowerCase();
+
+      const batePesquisa = textoProduto.includes(termo);
+      const bateCategoria = !cat || produto.categoria === cat;
+      const bateTamanho = !tam || produto.tamanho === tam;
+
+      let batePreco = true;
+      if(faixa){
+        const partes = faixa.split("-");
+        const min = Number(partes[0]);
+        const max = Number(partes[1]);
+        batePreco = produto.preco >= min && produto.preco <= max;
+      }
+
+      return batePesquisa && bateCategoria && bateTamanho && batePreco;
+    });
+
+    catalogo.innerHTML = "";
+
+    filtrados.forEach(produto => {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      card.innerHTML = `
+        <img class="foto" src="${produto.foto}" alt="${produto.nome}" onerror="this.src='https://placehold.co/600x450/e8f1e5/244b35?text=Foto+do+Produto'">
+
+        <div class="content">
+          <span class="tag">${produto.categoria} • ${produto.tamanho}</span>
+          <h3>${produto.nome}</h3>
+          <p class="desc">${produto.descricao}</p>
+
+          <div class="info">
+            <div><strong>Planta:</strong> ${produto.planta}</div>
+            <div><strong>Cuidados:</strong> ${produto.cuidados}</div>
+          </div>
+
+          <div class="preco">${dinheiro(produto.preco)}</div>
+
+          <div class="botoes">
+            <button class="btn-msg">Copiar mensagem</button>
+            <button class="btn-img">Copiar imagem</button>
+          </div>
+        </div>
+      `;
+
+      card.querySelector(".btn-msg").addEventListener("click", () => copiarMensagem(produto));
+      card.querySelector(".btn-img").addEventListener("click", () => copiarImagem(produto));
+
+      catalogo.appendChild(card);
+    });
+
+    empty.style.display = filtrados.length ? "none" : "block";
+  }
+
+  pesquisa.addEventListener("input", renderizar);
+  categoria.addEventListener("change", renderizar);
+  tamanho.addEventListener("change", renderizar);
+  preco.addEventListener("change", renderizar);
+
+  renderizar();
+</script>
+
+</body>
+</html>
