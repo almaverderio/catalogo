@@ -53,9 +53,7 @@
       object-fit:cover;
     }
 
-    .brand{
-      flex:1;
-    }
+    .brand{flex:1}
 
     .brand h1{
       margin:0;
@@ -348,13 +346,8 @@
       font-size:14px;
     }
 
-    .produto-check:last-child{
-      border-bottom:0;
-    }
-
-    .produto-check input{
-      width:auto;
-    }
+    .produto-check:last-child{border-bottom:0}
+    .produto-check input{width:auto}
 
     .opcoes-pdf{
       display:grid;
@@ -374,9 +367,7 @@
       font-size:14px;
     }
 
-    .opcoes-pdf input{
-      width:auto;
-    }
+    .opcoes-pdf input{width:auto}
 
     .acoes-exportar{
       display:grid;
@@ -401,56 +392,21 @@
     }
 
     @media(max-width:620px){
-      .topo{
-        padding:12px;
-        flex-wrap:wrap;
-      }
-
-      .logo{
-        width:50px;
-        height:50px;
-      }
-
-      .brand h1{
-        font-size:17px;
-      }
-
-      .btn-exportar{
-        width:100%;
-      }
-
-      .hero{
-        padding:20px;
-        border-radius:22px;
-      }
-
-      .hero h2{
-        font-size:23px;
-      }
-
-      .filters{
-        grid-template-columns:1fr;
-      }
-
-      .grid{
-        grid-template-columns:1fr;
-      }
-
-      .foto{
-        height:260px;
-      }
-
-      .botoes{
-        grid-template-columns:1fr;
-      }
-
-      .export-grid,
-      .acoes-exportar{
-        grid-template-columns:1fr;
-      }
+      .topo{padding:12px;flex-wrap:wrap}
+      .logo{width:50px;height:50px}
+      .brand h1{font-size:17px}
+      .btn-exportar{width:100%}
+      .hero{padding:20px;border-radius:22px}
+      .hero h2{font-size:23px}
+      .filters{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .foto{height:260px}
+      .botoes{grid-template-columns:1fr}
+      .export-grid,.acoes-exportar{grid-template-columns:1fr}
     }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -614,10 +570,7 @@
   const toast = document.getElementById("toast");
 
   function dinheiro(valor){
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
+    return valor.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
   }
 
   function mostrarToast(texto){
@@ -697,14 +650,7 @@ Cuidados: ${produto.cuidados}
     const faixa = preco.value;
 
     const filtrados = produtos.filter(produto => {
-      const textoProduto = `
-        ${produto.nome}
-        ${produto.categoria}
-        ${produto.tamanho}
-        ${produto.planta}
-        ${produto.preco}
-        ${produto.descricao}
-      `.toLowerCase();
+      const textoProduto = `${produto.nome} ${produto.categoria} ${produto.tamanho} ${produto.planta} ${produto.preco} ${produto.descricao}`.toLowerCase();
 
       const batePesquisa = textoProduto.includes(termo);
       const bateCategoria = !cat || produto.categoria === cat;
@@ -769,10 +715,9 @@ Cuidados: ${produto.cuidados}
   function montarListaPDF(){
     const lista = document.getElementById("listaProdutosPDF");
     const cat = document.getElementById("pdfCategoria").value;
-
     const itens = produtos.filter(produto => !cat || produto.categoria === cat);
 
-    lista.innerHTML = itens.map((produto, index) => {
+    lista.innerHTML = itens.map(produto => {
       const idOriginal = produtos.indexOf(produto);
 
       return `
@@ -792,6 +737,61 @@ Cuidados: ${produto.cuidados}
     document.querySelectorAll(".produto-pdf-check").forEach(check => check.checked = false);
   }
 
+  function nomeUnico(nome){
+    return nome
+      .toLowerCase()
+      .replace(" especial", "")
+      .replace(" premium", "")
+      .replace(" para estante", "")
+      .replace(" grande", "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
+
+  function calcularResumo(produtosSelecionados){
+    const resumo = {
+      Kokedama:{ total:0, Pequeno:0, Médio:0, Grande:0 },
+      Terrário:{ total:0, Pequeno:0, Médio:0, Grande:0 }
+    };
+
+    const vistos = new Set();
+
+    produtosSelecionados.forEach(produto => {
+      const chave = produto.categoria + "|" + nomeUnico(produto.nome);
+
+      if(vistos.has(chave)) return;
+
+      vistos.add(chave);
+
+      resumo[produto.categoria].total++;
+
+      if(resumo[produto.categoria][produto.tamanho] !== undefined){
+        resumo[produto.categoria][produto.tamanho]++;
+      }
+    });
+
+    return resumo;
+  }
+
+  function montarResumoHTML(resumo){
+    return `
+      <section class="pdf-resumo">
+        <div class="resumo-card">
+          <h3>Kokedamas</h3>
+          <strong>${resumo.Kokedama.total}</strong>
+          <p>Pequenas: ${resumo.Kokedama.Pequeno} • Médias: ${resumo.Kokedama.Médio} • Grandes: ${resumo.Kokedama.Grande}</p>
+        </div>
+
+        <div class="resumo-card">
+          <h3>Terrários</h3>
+          <strong>${resumo.Terrário.total}</strong>
+          <p>Pequenos: ${resumo.Terrário.Pequeno} • Médios: ${resumo.Terrário.Médio} • Grandes: ${resumo.Terrário.Grande}</p>
+        </div>
+      </section>
+    `;
+  }
+
   function gerarPDF(){
     const checks = Array.from(document.querySelectorAll(".produto-pdf-check:checked"));
     const mostrarValores = document.getElementById("pdfValores").value === "sim";
@@ -804,6 +804,7 @@ Cuidados: ${produto.cuidados}
     }
 
     const selecionados = checks.map(check => produtos[Number(check.value)]);
+    const resumo = calcularResumo(selecionados);
 
     let grupos = {};
 
@@ -855,9 +856,7 @@ Cuidados: ${produto.cuidados}
         <title>Catálogo PDF</title>
 
         <style>
-          *{
-            box-sizing:border-box;
-          }
+          *{box-sizing:border-box}
 
           body{
             margin:0;
@@ -867,139 +866,165 @@ Cuidados: ${produto.cuidados}
           }
 
           .pdf-page{
-            padding:28px;
+            padding:18px;
           }
 
           .pdf-header{
             background:linear-gradient(135deg,#244b35,#3f7656);
             color:white;
-            padding:26px;
-            border-radius:26px;
+            padding:18px;
+            border-radius:20px;
             display:flex;
             align-items:center;
-            gap:18px;
-            margin-bottom:24px;
+            gap:14px;
+            margin-bottom:12px;
           }
 
           .pdf-header img{
-            width:76px;
-            height:76px;
-            border-radius:22px;
+            width:58px;
+            height:58px;
+            border-radius:16px;
             object-fit:cover;
             background:white;
           }
 
           .pdf-header h1{
             margin:0;
-            font-size:30px;
+            font-size:22px;
           }
 
           .pdf-header p{
-            margin:7px 0 0;
+            margin:5px 0 0;
             color:#e8f2e8;
-            font-size:15px;
+            font-size:12px;
           }
 
           .pdf-note{
             background:white;
-            border-left:6px solid #c89f5d;
-            padding:15px 18px;
-            border-radius:16px;
-            margin-bottom:22px;
+            border-left:5px solid #c89f5d;
+            padding:10px 13px;
+            border-radius:13px;
+            margin-bottom:12px;
             color:#4d5b51;
-            font-size:14px;
+            font-size:11px;
+          }
+
+          .pdf-resumo{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+            margin-bottom:12px;
+          }
+
+          .resumo-card{
+            background:white;
+            border:1px solid #dce8d8;
+            border-radius:16px;
+            padding:12px;
+          }
+
+          .resumo-card h3{
+            margin:0 0 5px;
+            color:#244b35;
+            font-size:15px;
+          }
+
+          .resumo-card strong{
+            display:block;
+            font-size:24px;
+            color:#244b35;
+            margin-bottom:4px;
+          }
+
+          .resumo-card p{
+            margin:0;
+            color:#526057;
+            font-size:11px;
           }
 
           .categoria-pdf{
             color:#244b35;
-            font-size:24px;
-            margin:24px 0 14px;
-            border-bottom:2px solid #dce8d8;
-            padding-bottom:8px;
+            font-size:18px;
+            margin:12px 0 8px;
+            border-bottom:1px solid #dce8d8;
+            padding-bottom:5px;
           }
 
           .pdf-grid{
             display:grid;
             grid-template-columns:1fr 1fr;
-            gap:16px;
+            gap:10px;
           }
 
           .pdf-card{
             background:white;
-            border-radius:22px;
+            border-radius:16px;
             overflow:hidden;
             border:1px solid #dce8d8;
-            box-shadow:0 8px 24px rgba(31,42,36,.09);
             break-inside:avoid;
             page-break-inside:avoid;
           }
 
           .pdf-card img{
             width:100%;
-            height:210px;
+            height:112px;
             object-fit:cover;
             background:#dfe8dc;
+            display:block;
           }
 
           .pdf-info{
-            padding:15px;
+            padding:10px;
           }
 
           .pdf-info span{
             display:inline-block;
             background:#eaf2e7;
             color:#244b35;
-            padding:6px 10px;
+            padding:4px 8px;
             border-radius:999px;
-            font-size:11px;
+            font-size:9px;
             font-weight:bold;
-            margin-bottom:8px;
+            margin-bottom:5px;
           }
 
           .pdf-info h3{
-            margin:0 0 8px;
-            font-size:18px;
+            margin:0 0 5px;
+            font-size:13px;
+            line-height:1.2;
             color:#244b35;
           }
 
           .pdf-preco{
             display:block;
             color:#244b35;
-            font-size:22px;
-            margin-bottom:9px;
+            font-size:15px;
+            margin-bottom:5px;
           }
 
           .pdf-info p{
-            margin:7px 0;
+            margin:4px 0;
             color:#526057;
-            font-size:13px;
-            line-height:1.45;
+            font-size:9.5px;
+            line-height:1.25;
           }
 
           .pdf-footer{
-            margin-top:28px;
+            margin-top:18px;
             text-align:center;
             color:#66756b;
-            font-size:12px;
+            font-size:10px;
           }
 
           @media print{
-            body{
-              background:white;
-            }
-
-            .pdf-page{
-              padding:12mm;
-            }
-
-            .pdf-card{
-              box-shadow:none;
-            }
+            body{background:white}
+            .pdf-page{padding:0}
+            .pdf-card{box-shadow:none}
           }
 
           @page{
             size:A4;
-            margin:10mm;
+            margin:8mm;
           }
         </style>
       </head>
@@ -1018,6 +1043,8 @@ Cuidados: ${produto.cuidados}
             Catálogo preparado para envio ao cliente. Consulte disponibilidade das peças antes da confirmação do pedido.
           </div>
 
+          ${montarResumoHTML(resumo)}
+
           ${conteudo}
 
           <div class="pdf-footer">
@@ -1026,11 +1053,41 @@ Cuidados: ${produto.cuidados}
         </main>
 
         <script>
-          window.onload = function(){
+          function imprimirDepoisDasImagens(){
+            const imagens = Array.from(document.images);
+
+            if(imagens.length === 0){
+              window.print();
+              return;
+            }
+
+            let carregadas = 0;
+
+            function verificar(){
+              carregadas++;
+
+              if(carregadas >= imagens.length){
+                setTimeout(function(){
+                  window.print();
+                }, 500);
+              }
+            }
+
+            imagens.forEach(function(img){
+              if(img.complete){
+                verificar();
+              }else{
+                img.onload = verificar;
+                img.onerror = verificar;
+              }
+            });
+
             setTimeout(function(){
               window.print();
-            }, 800);
-          };
+            }, 5000);
+          }
+
+          window.onload = imprimirDepoisDasImagens;
         <\/script>
       </body>
       </html>
