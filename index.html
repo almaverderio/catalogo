@@ -53,7 +53,9 @@
       object-fit:cover;
     }
 
-    .brand{flex:1}
+    .brand{
+      flex:1;
+    }
 
     .brand h1{
       margin:0;
@@ -68,10 +70,11 @@
     }
 
     .btn-exportar{
-      background:var(--green);
+      background:linear-gradient(135deg,var(--green),var(--green2));
       color:white;
-      border-radius:999px;
       padding:13px 18px;
+      border-radius:999px;
+      box-shadow:0 8px 22px rgba(36,75,53,.22);
       white-space:nowrap;
     }
 
@@ -99,6 +102,42 @@
       margin:0;
       color:#e8f2e8;
       line-height:1.5;
+    }
+
+    .resumo{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .resumo-card{
+      background:white;
+      border:1px solid rgba(36,75,53,.1);
+      border-radius:22px;
+      padding:16px;
+      box-shadow:var(--shadow);
+    }
+
+    .resumo-card h3{
+      margin:0 0 10px;
+      color:var(--green);
+      font-size:17px;
+    }
+
+    .resumo-lista{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .resumo-pill{
+      background:#eaf2e7;
+      color:var(--green);
+      border-radius:999px;
+      padding:8px 11px;
+      font-size:13px;
+      font-weight:bold;
     }
 
     .filters{
@@ -132,6 +171,31 @@
       border:1px solid rgba(36,75,53,.08);
       display:flex;
       flex-direction:column;
+      position:relative;
+    }
+
+    .selecionar-produto{
+      position:absolute;
+      top:12px;
+      right:12px;
+      z-index:2;
+      background:rgba(255,255,255,.94);
+      border:1px solid rgba(36,75,53,.14);
+      border-radius:999px;
+      padding:8px 10px;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:12px;
+      font-weight:bold;
+      color:var(--green);
+      box-shadow:0 6px 18px rgba(31,42,36,.12);
+    }
+
+    .selecionar-produto input{
+      width:auto;
+      padding:0;
+      accent-color:var(--green);
     }
 
     .foto{
@@ -245,150 +309,158 @@
     .modal{
       position:fixed;
       inset:0;
-      background:rgba(10,20,15,.55);
+      background:rgba(17,30,23,.52);
       display:none;
-      align-items:flex-start;
+      align-items:center;
       justify-content:center;
       padding:18px;
-      z-index:50;
-      overflow:auto;
+      z-index:100;
     }
 
-    .modal.ativo{display:flex}
+    .modal.show{
+      display:flex;
+    }
 
     .modal-box{
-      width:100%;
-      max-width:780px;
+      width:min(680px,100%);
+      max-height:90vh;
+      overflow:auto;
       background:white;
-      border-radius:26px;
-      box-shadow:0 20px 60px rgba(0,0,0,.25);
+      border-radius:28px;
+      box-shadow:0 24px 70px rgba(0,0,0,.28);
       padding:22px;
-      margin-top:20px;
     }
 
     .modal-head{
       display:flex;
       justify-content:space-between;
-      gap:14px;
+      gap:12px;
       align-items:flex-start;
-      margin-bottom:18px;
+      margin-bottom:16px;
     }
 
     .modal-head h2{
       margin:0;
       color:var(--green);
-      font-size:23px;
+      font-size:24px;
     }
 
     .modal-head p{
       margin:6px 0 0;
       color:var(--muted);
       font-size:14px;
+      line-height:1.4;
     }
 
     .btn-fechar{
       width:42px;
       height:42px;
-      border-radius:50%;
-      background:#eef3ec;
+      padding:0;
+      border-radius:14px;
+      background:#eef4eb;
       color:var(--green);
       font-size:20px;
     }
 
-    .export-grid{
+    .opcoes-pdf{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
       margin-bottom:16px;
     }
 
-    .opcoes-pdf{
-      display:grid;
-      gap:10px;
-      margin:15px 0;
-      padding:14px;
-      border-radius:18px;
+    .campo-opcao{
       background:#f8fbf6;
-      border:1px solid rgba(36,75,53,.14);
+      border:1px solid rgba(36,75,53,.12);
+      border-radius:18px;
+      padding:12px;
     }
 
-    .opcoes-pdf label{
+    .campo-opcao label{
+      display:block;
+      color:var(--green);
+      font-weight:bold;
+      font-size:13px;
+      margin-bottom:8px;
+    }
+
+    .checks{
+      display:grid;
+      gap:8px;
+    }
+
+    .check-linha{
       display:flex;
-      gap:9px;
       align-items:center;
+      gap:9px;
       color:var(--text);
       font-size:14px;
     }
 
-    .opcoes-pdf input{width:auto}
-
-    .check-area{
-      border:1px solid rgba(36,75,53,.14);
-      background:#f8fbf6;
-      border-radius:18px;
-      padding:14px;
-      max-height:310px;
-      overflow:auto;
+    .check-linha input{
+      width:auto;
+      accent-color:var(--green);
     }
 
-    .check-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
-      margin-bottom:12px;
-    }
-
-    .check-top strong{color:var(--green)}
-
-    .small-actions{
-      display:flex;
-      gap:8px;
-    }
-
-    .small-actions button{
-      padding:8px 10px;
-      font-size:12px;
-      background:#e7efe4;
-      color:var(--green);
-    }
-
-    .produto-check{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      padding:9px 0;
-      border-bottom:1px solid rgba(36,75,53,.08);
-      font-size:14px;
-    }
-
-    .produto-check:last-child{border-bottom:0}
-    .produto-check input{width:auto}
-
-    .acoes-exportar{
+    .lista-selecao{
       display:grid;
       grid-template-columns:1fr 1fr;
+      gap:8px;
+      max-height:220px;
+      overflow:auto;
+      padding:10px;
+      background:#f8fbf6;
+      border:1px solid rgba(36,75,53,.12);
+      border-radius:18px;
+      margin-top:8px;
+    }
+
+    .item-selecao{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:white;
+      border:1px solid rgba(36,75,53,.1);
+      border-radius:14px;
+      padding:9px;
+      font-size:13px;
+    }
+
+    .item-selecao input{
+      width:auto;
+      accent-color:var(--green);
+    }
+
+    .acoes-modal{
+      display:flex;
       gap:10px;
+      justify-content:flex-end;
       margin-top:16px;
     }
 
-    .btn-gerar{
-      background:var(--green);
-      color:white;
+    .btn-secundario{
+      background:#eef4eb;
+      color:var(--green);
     }
 
-    .btn-cancelar{
-      background:#efe7d8;
-      color:#6b4c1f;
+    .btn-principal{
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:white;
+      padding-inline:18px;
     }
 
     @media(max-width:900px){
       .grid{grid-template-columns:repeat(2,1fr)}
       .filters{grid-template-columns:1fr 1fr}
+      .resumo{grid-template-columns:1fr}
     }
 
     @media(max-width:620px){
-      .topo{padding:12px;flex-wrap:wrap}
+      .topo{
+        padding:12px;
+        flex-wrap:wrap;
+      }
+
       .logo{width:50px;height:50px}
       .brand h1{font-size:17px}
       .btn-exportar{width:100%}
@@ -398,21 +470,22 @@
       .grid{grid-template-columns:1fr}
       .foto{height:260px}
       .botoes{grid-template-columns:1fr}
-      .export-grid,.acoes-exportar{grid-template-columns:1fr}
+      .opcoes-pdf{grid-template-columns:1fr}
+      .lista-selecao{grid-template-columns:1fr}
+      .acoes-modal{flex-direction:column}
     }
   </style>
 </head>
-
 <body>
 
 <header>
   <div class="topo">
-    <img class="logo" src="img/logo.png" alt="Logo da loja">
+    <img class="logo" src="img/ALMA-VERDE-LOGO-FINAL.PNG" alt="Logo da loja">
     <div class="brand">
       <h1>Sua Loja de Kokedamas</h1>
       <p>Catálogo para atendimento rápido</p>
     </div>
-    <button class="btn-exportar" onclick="abrirModalPDF()">Exportar PDF</button>
+    <button class="btn-exportar" id="abrirPdf">Exportar catálogo em PDF</button>
   </div>
 </header>
 
@@ -422,6 +495,8 @@
     <h2>Catálogo de Kokedamas e Terrários</h2>
     <p>Pesquise, filtre por categoria, copie a mensagem pronta e envie ao cliente.</p>
   </section>
+
+  <section class="resumo" id="resumo"></section>
 
   <section class="filters">
     <input id="pesquisa" type="search" placeholder="Pesquisar por nome, planta, tipo ou valor...">
@@ -452,56 +527,65 @@
 
 </main>
 
-<div id="modalPDF" class="modal">
+<div id="modalPdf" class="modal">
   <div class="modal-box">
     <div class="modal-head">
       <div>
-        <h2>Exportar catálogo em PDF</h2>
-        <p>Escolha a categoria, os produtos e se deseja mostrar os valores.</p>
+        <h2>Exportar catálogo</h2>
+        <p>Escolha o que deseja enviar ao cliente. O arquivo será aberto pronto para imprimir ou salvar como PDF.</p>
       </div>
-      <button class="btn-fechar" onclick="fecharModalPDF()">×</button>
-    </div>
-
-    <div class="export-grid">
-      <select id="pdfCategoria" onchange="montarListaPDF()">
-        <option value="">Todas as categorias</option>
-        <option value="Kokedama">Somente Kokedamas</option>
-        <option value="Terrário">Somente Terrários</option>
-      </select>
-
-      <select id="pdfValores">
-        <option value="sim">Com valores</option>
-        <option value="nao">Sem valores</option>
-      </select>
+      <button class="btn-fechar" id="fecharPdf">×</button>
     </div>
 
     <div class="opcoes-pdf">
-      <label>
-        <input type="checkbox" id="pdfTextos" checked>
-        Incluir textos, plantas/composição e cuidados
-      </label>
+      <div class="campo-opcao">
+        <label>Tipo de exportação</label>
+        <select id="tipoExportacao">
+          <option value="todos">Catálogo completo</option>
+          <option value="filtrados">Somente produtos filtrados na tela</option>
+          <option value="categoria">Por categoria</option>
+          <option value="selecionados">Produtos selecionados</option>
+        </select>
+      </div>
 
-      <label>
-        <input type="checkbox" id="pdfAgrupar" checked>
-        Separar por categoria no PDF
-      </label>
-    </div>
+      <div class="campo-opcao">
+        <label>Categoria</label>
+        <select id="categoriaPdf">
+          <option value="Kokedama">Kokedamas</option>
+          <option value="Terrário">Terrários</option>
+        </select>
+      </div>
 
-    <div class="check-area">
-      <div class="check-top">
-        <strong>Produtos para exportar</strong>
-        <div class="small-actions">
-          <button onclick="selecionarTodosPDF()">Selecionar todos</button>
-          <button onclick="limparSelecaoPDF()">Limpar</button>
+      <div class="campo-opcao">
+        <label>Valores</label>
+        <div class="checks">
+          <label class="check-linha">
+            <input type="radio" name="valoresPdf" value="sim" checked>
+            Exportar com valores
+          </label>
+          <label class="check-linha">
+            <input type="radio" name="valoresPdf" value="nao">
+            Exportar sem valores
+          </label>
         </div>
       </div>
 
-      <div id="listaProdutosPDF"></div>
+      <div class="campo-opcao">
+        <label>Observação</label>
+        <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.45;">
+          O PDF terá resumo de quantidades, textos das plantas, cuidados e visual compacto com cerca de 6 itens por folha.
+        </p>
+      </div>
     </div>
 
-    <div class="acoes-exportar">
-      <button class="btn-gerar" onclick="gerarPDF()">Gerar PDF</button>
-      <button class="btn-cancelar" onclick="fecharModalPDF()">Cancelar</button>
+    <div>
+      <strong style="color:var(--green);font-size:14px;">Selecionar produtos específicos</strong>
+      <div id="listaSelecaoPdf" class="lista-selecao"></div>
+    </div>
+
+    <div class="acoes-modal">
+      <button class="btn-secundario" id="limparSelecao">Limpar seleção</button>
+      <button class="btn-principal" id="gerarPdf">Gerar PDF</button>
     </div>
   </div>
 </div>
@@ -510,52 +594,456 @@
 
 <script>
   const produtos = [
-    { nome:"Kokedama de Aglaonema", categoria:"Kokedama", tamanho:"Médio", preco:85, planta:"Aglaonema", cuidados:"Luz indireta e rega moderada.", descricao:"Planta elegante e resistente para ambientes internos.", foto:"img/aglaonema.JPG" },
-    { nome:"Kokedama de Aglaonema Especial", categoria:"Kokedama", tamanho:"Médio", preco:89, planta:"Aglaonema", cuidados:"Luz indireta e rega quando o musgo estiver seco.", descricao:"Modelo charmoso com folhagem ornamental.", foto:"img/aglaonema2.JPG" },
-    { nome:"Kokedama de Antúrio", categoria:"Kokedama", tamanho:"Médio", preco:90, planta:"Antúrio", cuidados:"Luz indireta, rega moderada e boa ventilação.", descricao:"Opção elegante com folhagem marcante.", foto:"img/anturio.JPG" },
-    { nome:"Kokedama de Antúrio para Estante", categoria:"Kokedama", tamanho:"Médio", preco:95, planta:"Antúrio", cuidados:"Local iluminado sem sol direto.", descricao:"Ideal para estantes, aparadores e decoração interna.", foto:"img/anturio-estante.JPG" },
-    { nome:"Kokedama de Cordyline", categoria:"Kokedama", tamanho:"Médio", preco:80, planta:"Cordyline", cuidados:"Luz indireta intensa e regas moderadas.", descricao:"Folhagem colorida que traz vida ao ambiente.", foto:"img/cordyline.JPG" },
-    { nome:"Kokedama de Cordyline Especial", categoria:"Kokedama", tamanho:"Médio", preco:85, planta:"Cordyline", cuidados:"Local claro e rega sem encharcar.", descricao:"Peça artesanal com visual vibrante.", foto:"img/cordyline2.JPG" },
-    { nome:"Kokedama de Croton", categoria:"Kokedama", tamanho:"Médio", preco:78, planta:"Croton", cuidados:"Bastante claridade e rega moderada.", descricao:"Folhagem colorida e cheia de personalidade.", foto:"img/croton.JPG" },
-    { nome:"Kokedama de Croton Especial", categoria:"Kokedama", tamanho:"Médio", preco:82, planta:"Croton", cuidados:"Local claro e pouca água.", descricao:"Opção decorativa para quem ama plantas com cor.", foto:"img/croton2.JPG" },
-    { nome:"Kokedama de Croton Brasileirinha", categoria:"Kokedama", tamanho:"Médio", preco:88, planta:"Croton Brasileirinha", cuidados:"Luz natural abundante e regas moderadas.", descricao:"Folhagem diferenciada com visual tropical.", foto:"img/crotonbrasileirinha.JPG" },
-    { nome:"Kokedama de Espada Raposa", categoria:"Kokedama", tamanho:"Médio", preco:75, planta:"Espada Raposa", cuidados:"Pouca água e meia sombra.", descricao:"Modelo resistente, moderno e fácil de cuidar.", foto:"img/espada-raposa.JPG" },
-    { nome:"Kokedama de Espada de São Jorge", categoria:"Kokedama", tamanho:"Médio", preco:70, planta:"Espada de São Jorge", cuidados:"Pouca água e meia sombra.", descricao:"Clássica, resistente e muito procurada.", foto:"img/espadasaojorge.JPG" },
-    { nome:"Kokedama de Espada de São Jorge Especial", categoria:"Kokedama", tamanho:"Grande", preco:110, planta:"Espada de São Jorge", cuidados:"Pouca água e ambiente iluminado.", descricao:"Versão maior com presença forte.", foto:"img/espadasaojorge6.JPG" },
-    { nome:"Kokedama de Jiboia", categoria:"Kokedama", tamanho:"Pequeno", preco:55, planta:"Jiboia", cuidados:"Meia sombra e rega por imersão.", descricao:"Linda, versátil e fácil de cuidar.", foto:"img/jiboia.JPG" },
-    { nome:"Kokedama de Jiboia Especial", categoria:"Kokedama", tamanho:"Médio", preco:65, planta:"Jiboia", cuidados:"Luz indireta e musgo levemente úmido.", descricao:"Ótima para pendurar, apoiar ou presentear.", foto:"img/jiboia3.JPG" },
-    { nome:"Kokedama de Jiboia Grande", categoria:"Kokedama", tamanho:"Grande", preco:120, planta:"Jiboia", cuidados:"Luz indireta e rega moderada.", descricao:"Modelo maior com ótimo efeito decorativo.", foto:"img/jiboiagrande.JPG" },
-    { nome:"Kokedama de Maranta", categoria:"Kokedama", tamanho:"Médio", preco:85, planta:"Maranta", cuidados:"Luz indireta e umidade moderada.", descricao:"Folhagem desenhada e muito ornamental.", foto:"img/maranta.JPG" },
-    { nome:"Kokedama de Peperômia", categoria:"Kokedama", tamanho:"Pequeno", preco:58, planta:"Peperômia", cuidados:"Luz indireta e pouca água.", descricao:"Compacta e perfeita para pequenos espaços.", foto:"img/peperomia.JPG" },
-    { nome:"Kokedama de Tradescância", categoria:"Kokedama", tamanho:"Pequeno", preco:55, planta:"Tradescância", cuidados:"Meia sombra e regas leves.", descricao:"Planta pendente com visual delicado.", foto:"img/tradescancia.JPG" },
-    { nome:"Kokedama de Zamioculca", categoria:"Kokedama", tamanho:"Médio", preco:90, planta:"Zamioculca", cuidados:"Pouca água e meia sombra.", descricao:"Resistente, sofisticada e prática.", foto:"img/zamioculca.JPG" },
-    { nome:"Kokedama de Zamioculca Especial", categoria:"Kokedama", tamanho:"Médio", preco:95, planta:"Zamioculca", cuidados:"Pouca água e luz indireta.", descricao:"Modelo elegante para presente ou decoração.", foto:"img/zamioculca5.JPG" },
-    { nome:"Kokedama de Zamioculca para Estante", categoria:"Kokedama", tamanho:"Médio", preco:98, planta:"Zamioculca", cuidados:"Pouca água e ambiente interno.", descricao:"Ideal para estantes, nichos e escritórios.", foto:"img/zamioculca-estante.JPG" },
-    { nome:"Kokedama de Zamioculca Grande", categoria:"Kokedama", tamanho:"Grande", preco:135, planta:"Zamioculca", cuidados:"Regas espaçadas e luz indireta.", descricao:"Peça grande, sofisticada e decorativa.", foto:"img/zamioculca-grande3.JPG" },
-    { nome:"Kokedama de Zamioculca Grande Premium", categoria:"Kokedama", tamanho:"Grande", preco:145, planta:"Zamioculca", cuidados:"Pouca água e meia sombra.", descricao:"Modelo premium para decoração elegante.", foto:"img/zamioculca-grande4.JPG" },
-
-    { nome:"Terrário Deserto", categoria:"Terrário", tamanho:"Médio", preco:89, planta:"Suculentas e elementos decorativos", cuidados:"Luz clara e pouca água.", descricao:"Terrário com inspiração desértica.", foto:"img/deserto.JPG" },
-    { nome:"Terrário Deserto Especial", categoria:"Terrário", tamanho:"Médio", preco:95, planta:"Suculentas e pedras naturais", cuidados:"Ambiente claro e rega espaçada.", descricao:"Composição artesanal elegante.", foto:"img/deserto2.JPG" },
-    { nome:"Terrário Deserto Precioso", categoria:"Terrário", tamanho:"Grande", preco:130, planta:"Suculentas selecionadas", cuidados:"Pouca água e bastante claridade.", descricao:"Peça premium com acabamento delicado.", foto:"img/desertoprecioso.JPG" },
-    { nome:"Terrário Deserto Precioso Especial", categoria:"Terrário", tamanho:"Grande", preco:139, planta:"Suculentas e decoração mineral", cuidados:"Pouca água e local iluminado.", descricao:"Terrário sofisticado para presente especial.", foto:"img/desertoprecioso2.JPG" },
-    { nome:"Terrário Deserto Vivo", categoria:"Terrário", tamanho:"Médio", preco:105, planta:"Suculentas variadas", cuidados:"Luz natural e pouca água.", descricao:"Mini paisagem viva e encantadora.", foto:"img/desertovivo.JPG" },
-    { nome:"Terrário Deserto Vivo Especial", categoria:"Terrário", tamanho:"Médio", preco:112, planta:"Suculentas e pedras", cuidados:"Regas leves e local claro.", descricao:"Composição artesanal muito decorativa.", foto:"img/desertovivo2.JPG" },
-    { nome:"Terrário Floresta", categoria:"Terrário", tamanho:"Médio", preco:99, planta:"Plantas tropicais e musgos", cuidados:"Luz indireta e umidade equilibrada.", descricao:"Pequeno cenário verde inspirado na floresta.", foto:"img/floresta.JPG" },
-    { nome:"Terrário Floresta Especial", categoria:"Terrário", tamanho:"Grande", preco:125, planta:"Musgos e plantas tropicais", cuidados:"Luz indireta e controle de umidade.", descricao:"Terrário vivo, denso e decorativo.", foto:"img/floresta2.JPG" },
-    { nome:"Terrário Jardim Encantado", categoria:"Terrário", tamanho:"Médio", preco:115, planta:"Mix de plantas ornamentais", cuidados:"Luz indireta e rega leve.", descricao:"Peça delicada com atmosfera encantadora.", foto:"img/jardimencantado.JPG" },
-    { nome:"Terrário Jardim Encantado Especial", categoria:"Terrário", tamanho:"Grande", preco:140, planta:"Plantas ornamentais e musgos", cuidados:"Luz indireta e umidade controlada.", descricao:"Composição especial para presentear.", foto:"img/jardimencantado2.JPG" },
-    { nome:"Terrário Jardim Nevado", categoria:"Terrário", tamanho:"Pequeno", preco:79, planta:"Mini suculentas e decoração clara", cuidados:"Luz clara e pouca água.", descricao:"Visual delicado para pequenos espaços.", foto:"img/jardimnevado.JPG" },
-    { nome:"Terrário Jardim Nevado Especial", categoria:"Terrário", tamanho:"Médio", preco:92, planta:"Suculentas e pedras claras", cuidados:"Pouca água e local iluminado.", descricao:"Composição suave e elegante.", foto:"img/jardimnevado2.JPG" },
-    { nome:"Terrário Jardim Nevado Premium", categoria:"Terrário", tamanho:"Grande", preco:128, planta:"Suculentas selecionadas", cuidados:"Pouca água e boa luminosidade.", descricao:"Versão premium com maior impacto visual.", foto:"img/jardimnevado3.JPG" },
-    { nome:"Terrário Meu Refúgio", categoria:"Terrário", tamanho:"Médio", preco:105, planta:"Plantas ornamentais", cuidados:"Luz indireta e regas controladas.", descricao:"Um pequeno refúgio verde para o ambiente.", foto:"img/meurefugio.JPG" },
-    { nome:"Terrário Meu Refúgio Especial", categoria:"Terrário", tamanho:"Médio", preco:112, planta:"Mix verde ornamental", cuidados:"Luz indireta e ambiente iluminado.", descricao:"Composição aconchegante para presentear.", foto:"img/meurefugio2.JPG" },
-    { nome:"Terrário Meu Refúgio Premium", categoria:"Terrário", tamanho:"Grande", preco:145, planta:"Plantas tropicais e musgos", cuidados:"Luz indireta e umidade controlada.", descricao:"Peça premium com visual natural.", foto:"img/meurefugio3.JPG" },
-    { nome:"Terrário Mini Jardim", categoria:"Terrário", tamanho:"Pequeno", preco:65, planta:"Mini plantas ornamentais", cuidados:"Luz indireta e pouca água.", descricao:"Compacto, delicado e ótimo para mesa.", foto:"img/minijardim.JPG" },
-    { nome:"Terrário Mini Jardim Especial", categoria:"Terrário", tamanho:"Pequeno", preco:72, planta:"Mini suculentas", cuidados:"Ambiente claro e rega espaçada.", descricao:"Pequeno no tamanho, grande no charme.", foto:"img/minijardim2.JPG" },
-    { nome:"Terrário Oásis", categoria:"Terrário", tamanho:"Médio", preco:98, planta:"Suculentas e elementos naturais", cuidados:"Luz clara e pouca água.", descricao:"Composição inspirada em um pequeno oásis.", foto:"img/oasis.JPG" },
-    { nome:"Terrário Oásis Especial", categoria:"Terrário", tamanho:"Grande", preco:125, planta:"Suculentas variadas", cuidados:"Pouca água e local claro.", descricao:"Terrário elegante para decoração ou presente.", foto:"img/oasis2.JPG" },
-    { nome:"Terrário Vida Vertical", categoria:"Terrário", tamanho:"Médio", preco:118, planta:"Plantas ornamentais verticais", cuidados:"Luz indireta e umidade equilibrada.", descricao:"Design vertical moderno e diferenciado.", foto:"img/vidavertical.JPG" },
-    { nome:"Terrário Vida Vertical Especial", categoria:"Terrário", tamanho:"Grande", preco:150, planta:"Plantas ornamentais selecionadas", cuidados:"Luz indireta e rega moderada.", descricao:"Peça de destaque para ambientes sofisticados.", foto:"img/vidavertical2.JPG" }
+    {
+      nome: "Kokedama de Aglaonema",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Aglaonema",
+      cuidados: "Luz indireta, rega moderada e ambiente interno iluminado.",
+      descricao: "Planta elegante, resistente e perfeita para decorar ambientes internos.",
+      foto: "img/aglaonema.JPG"
+    },
+    {
+      nome: "Kokedama de Aglaonema",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Aglaonema",
+      cuidados: "Luz indireta, evitar sol forte e regar quando o musgo estiver seco.",
+      descricao: "Modelo charmoso com folhagem ornamental de alto valor decorativo.",
+      foto: "img/aglaonema2.JPG"
+    },
+    {
+      nome: "Kokedama de Antúrio",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Antúrio",
+      cuidados: "Luz indireta, rega moderada e boa ventilação.",
+      descricao: "Opção elegante com folhagem marcante e presença sofisticada.",
+      foto: "img/anturio.JPG"
+    },
+    {
+      nome: "Kokedama de Antúrio",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Antúrio",
+      cuidados: "Manter em local iluminado, sem sol direto, com rega por imersão.",
+      descricao: "Ideal para estantes, aparadores e espaços decorativos internos.",
+      foto: "img/anturio-estante.JPG"
+    },
+    {
+      nome: "Kokedama de Maranta Tricolor",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Maranta Tricolor",
+      cuidados: "Luz indireta intensa, regas moderadas e ambiente arejado.",
+      descricao: "Folhagem colorida que traz vida e contraste para a decoração.",
+      foto: "img/cordyline.JPG"
+    },
+    {
+      nome: "Kokedama de Maranta Tricolor",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Maranta Tricolor",
+      cuidados: "Evitar sol forte, manter em local claro e regar sem encharcar.",
+      descricao: "Peça artesanal com visual vibrante e moderno.",
+      foto: "img/cordyline2.JPG"
+    },
+    {
+      nome: "Kokedama de Croton",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 119,
+      planta: "Croton",
+      cuidados: "Gosta de bastante claridade, rega moderada e ambiente ventilado.",
+      descricao: "Folhagem colorida, alegre e cheia de personalidade.",
+      foto: "img/croton.JPG"
+    },
+    {
+      nome: "Kokedama de Croton",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 119,
+      planta: "Croton",
+      cuidados: "Manter em local claro, com pouca água e boa luminosidade.",
+      descricao: "Uma opção decorativa forte para quem ama plantas com cor.",
+      foto: "img/croton2.JPG"
+    },
+    {
+      nome: "Kokedama de Croton Brasileirinha",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Croton Brasileirinha",
+      cuidados: "Luz natural abundante, regas moderadas e sem encharcar.",
+      descricao: "Folhagem diferenciada com visual tropical e ornamental.",
+      foto: "img/crotonbrasileirinha.JPG"
+    },
+    {
+      nome: "Kokedama de Espada Raposa",
+      categoria: "Kokedama",
+      tamanho: "Pequeno",
+      preco: 49,
+      planta: "Espada Raposa",
+      cuidados: "Planta resistente, precisa de pouca água e aceita meia sombra.",
+      descricao: "Modelo resistente, moderno e fácil de cuidar.",
+      foto: "img/espada-raposa.JPG"
+    },
+    {
+      nome: "Kokedama de Espada de São Jorge",
+      categoria: "Kokedama",
+      tamanho: "Pequeno",
+      preco: 49,
+      planta: "Espada de São Jorge",
+      cuidados: "Pouca água, meia sombra ou luz indireta e manutenção simples.",
+      descricao: "Clássica, resistente e muito procurada para proteção e decoração.",
+      foto: "img/espadasaojorge.JPG"
+    },
+    {
+      nome: "Kokedama de Espada de São Jorge",
+      categoria: "Kokedama",
+      tamanho: "Pequeno",
+      preco: 49,
+      planta: "Espada de São Jorge",
+      cuidados: "Regar pouco, manter em ambiente iluminado e evitar excesso de água.",
+      descricao: "Versão maior, com presença forte e acabamento artesanal.",
+      foto: "img/espadasaojorge6.JPG"
+    },
+    {
+      nome: "Kokedama de Jiboia",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Jiboia",
+      cuidados: "Meia sombra, rega por imersão 1 a 2 vezes por semana.",
+      descricao: "Queridinha dos ambientes internos, linda e fácil de cuidar.",
+      foto: "img/jiboia.JPG"
+    },
+    {
+      nome: "Kokedama de Jiboia",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Jiboia",
+      cuidados: "Luz indireta, manter o musgo levemente úmido e evitar sol direto.",
+      descricao: "Peça versátil para pendurar, apoiar ou presentear.",
+      foto: "img/jiboia3.JPG"
+    },
+    {
+      nome: "Kokedama de Lirio da Paz",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 79,
+      planta: "Lirio da Paz",
+      cuidados: "Luz indireta, rega moderada e ambiente interno bem iluminado.",
+      descricao: "Modelo maior com visual marcante e ótimo efeito decorativo.",
+      foto: "img/jiboiagrande.JPG"
+    },
+    {
+      nome: "Kokedama de Aphelandra ",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Aphelandra ",
+      cuidados: "Luz indireta, umidade moderada e evitar sol direto.",
+      descricao: "Folhagem desenhada, delicada e muito ornamental.",
+      foto: "img/maranta.JPG"
+    },
+    {
+      nome: "Kokedama de Peperômia Melancia",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Peperômia Melancia",
+      cuidados: "Luz indireta, pouca água e ambiente interno iluminado.",
+      descricao: "Compacta, charmosa e perfeita para pequenos espaços.",
+      foto: "img/peperomia.JPG"
+    },
+    {
+      nome: "Kokedama de Tradescância",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 89,
+      planta: "Tradescância",
+      cuidados: "Meia sombra, regas leves e boa luminosidade.",
+      descricao: "Planta pendente com visual delicado e crescimento bonito.",
+      foto: "img/tradescancia.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Zamioculca",
+      cuidados: "Pouca água, meia sombra e manutenção muito simples.",
+      descricao: "Resistente, sofisticada e perfeita para quem quer praticidade.",
+      foto: "img/zamioculca.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Zamioculca",
+      cuidados: "Regar pouco, evitar sol direto e manter em local claro.",
+      descricao: "Modelo elegante com ótimo acabamento para presente ou decoração.",
+      foto: "img/zamioculca5.JPG"
+    },
+    {
+      nome: "Kokedama de Zamioculca",
+      categoria: "Kokedama",
+      tamanho: "Médio",
+      preco: 99,
+      planta: "Zamioculca",
+      cuidados: "Pouca água, luz indireta e ambiente interno.",
+      descricao: "Ideal para estantes, nichos, escritórios e aparadores.",
+      foto: "img/zamioculca-estante.JPG"
+    },
+    {
+      nome: "Kokedama de Alpinia",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 119,
+      planta: "Alpinia",
+      cuidados: "Regas espaçadas, luz indireta e fácil manutenção.",
+      descricao: "Peça grande, sofisticada e com alto valor percebido.",
+      foto: "img/zamioculca-grande.JPG"
+    },
+    {
+      nome: "Kokedama de Alpinia",
+      categoria: "Kokedama",
+      tamanho: "Grande",
+      preco: 109,
+      planta: "Alpinia",
+      cuidados: "Pouca água, meia sombra e evitar excesso de umidade.",
+      descricao: "Modelo premium para decoração elegante e presente especial.",
+      foto: "img/zamioculca-grande3.JPG"
+    },
+    {
+      nome: "Terrário Deserto",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Suculentas e elementos decorativos",
+      cuidados: "Luz clara, pouca água e evitar excesso de umidade.",
+      descricao: "Terrário com inspiração desértica, moderno e de baixa manutenção.",
+      foto: "img/deserto.JPG"
+    },
+    {
+      nome: "Terrário Deserto",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Suculentas e pedras naturais",
+      cuidados: "Ambiente claro, rega leve e espaçada.",
+      descricao: "Composição artesanal com visual seco, elegante e decorativo.",
+      foto: "img/deserto2.JPG"
+    },
+    {
+      nome: "Terrário Deserto Precioso",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 109,
+      planta: "Suculentas selecionadas",
+      cuidados: "Pouca água, bastante claridade e evitar sol forte direto.",
+      descricao: "Peça premium com acabamento delicado e presença marcante.",
+      foto: "img/desertoprecioso.JPG"
+    },
+    {
+      nome: "Terrário Deserto Precioso",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 109,
+      planta: "Suculentas e decoração mineral",
+      cuidados: "Regar pouco, manter em local iluminado e sem encharcar.",
+      descricao: "Terrário sofisticado para decoração ou presente especial.",
+      foto: "img/desertoprecioso2.JPG"
+    },
+    {
+      nome: "Terrário Deserto Vivo",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Suculentas variadas",
+      cuidados: "Luz natural, pouca água e manutenção simples.",
+      descricao: "Mini paisagem viva com visual natural e encantador.",
+      foto: "img/desertovivo.JPG"
+    },
+    {
+      nome: "Terrário Deserto Vivo",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Suculentas e pedras",
+      cuidados: "Regas leves e espaçadas, sempre em local claro.",
+      descricao: "Composição artesanal com equilíbrio entre natureza e decoração.",
+      foto: "img/desertovivo2.JPG"
+    },
+    {
+      nome: "Terrário Floresta",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Plantas tropicais e musgos",
+      cuidados: "Luz indireta, umidade equilibrada e evitar sol direto.",
+      descricao: "Um pequeno cenário verde inspirado na natureza tropical.",
+      foto: "img/floresta.JPG"
+    },
+    {
+      nome: "Terrário Floresta Especial",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Musgos e plantas tropicais",
+      cuidados: "Luz indireta, abrir se houver excesso de umidade.",
+      descricao: "Terrário com visual vivo, denso e muito decorativo.",
+      foto: "img/floresta2.JPG"
+    },
+    {
+      nome: "Terrário Jardim Encantado",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 179,
+      planta: "Mix de plantas ornamentais",
+      cuidados: "Luz indireta e rega leve conforme necessidade.",
+      descricao: "Peça delicada com atmosfera lúdica e encantadora.",
+      foto: "img/jardimencantado.JPG"
+    },
+    {
+      nome: "Terrário Jardim Encantado",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 179,
+      planta: "Plantas ornamentais e musgos",
+      cuidados: "Manter em luz indireta e observar a umidade interna.",
+      descricao: "Composição especial para presente afetivo e decoração fina.",
+      foto: "img/jardimencantado2.JPG"
+    },
+    {
+      nome: "Terrário Jardim Nevado",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 109,
+      planta: "Mini suculentas e decoração clara",
+      cuidados: "Luz clara, pouca água e local arejado.",
+      descricao: "Visual delicado, leve e perfeito para pequenos espaços.",
+      foto: "img/jardimnevado.JPG"
+    },
+    {
+      nome: "Terrário Jardim Nevado",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 109,
+      planta: "Suculentas e pedras claras",
+      cuidados: "Regar pouco e manter em local bem iluminado.",
+      descricao: "Terrário com composição suave e acabamento elegante.",
+      foto: "img/jardimnevado2.JPG"
+    },
+    {
+      nome: "Terrário Jardim Nevado",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 109,
+      planta: "Suculentas selecionadas",
+      cuidados: "Pouca água, boa luminosidade e evitar umidade excessiva.",
+      descricao: "Versão premium com maior impacto visual.",
+      foto: "img/jardimnevado3.JPG"
+    },
+    {
+      nome: "Terrário Meu Refúgio",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Plantas ornamentais",
+      cuidados: "Luz indireta, regas controladas e ambiente claro.",
+      descricao: "Um pequeno refúgio verde para trazer calma ao ambiente.",
+      foto: "img/meurefugio.JPG"
+    },
+    {
+      nome: "Terrário Meu Refúgio",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 259,
+      planta: "Mix verde ornamental",
+      cuidados: "Evitar sol direto, manter em local iluminado.",
+      descricao: "Composição aconchegante e perfeita para presentear.",
+      foto: "img/meurefugio2.JPG"
+    },
+    {
+      nome: "Terrário Meu Refúgio",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Plantas tropicais e musgos",
+      cuidados: "Luz indireta e controle da umidade interna.",
+      descricao: "Peça premium com visual natural e sofisticado.",
+      foto: "img/meurefugio3.JPG"
+    },
+    {
+      nome: "Terrário Mini Jardim",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 99,
+      planta: "Mini plantas ornamentais",
+      cuidados: "Luz indireta e pouca água.",
+      descricao: "Compacto, delicado e ótimo para lembrancinhas ou mesa.",
+      foto: "img/minijardim.JPG"
+    },
+    {
+      nome: "Terrário Mini Jardim",
+      categoria: "Terrário",
+      tamanho: "Pequeno",
+      preco: 99,
+      planta: "Mini suculentas",
+      cuidados: "Ambiente claro, rega leve e espaçada.",
+      descricao: "Pequeno no tamanho, grande no charme.",
+      foto: "img/minijardim2.JPG"
+    },
+    {
+      nome: "Terrário Oásis",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 199,
+      planta: "Suculentas e elementos naturais",
+      cuidados: "Luz clara, pouca água e manutenção simples.",
+      descricao: "Composição inspirada em um pequeno oásis natural.",
+      foto: "img/oasis.JPG"
+    },
+    {
+      nome: "Terrário Oásis Especial",
+      categoria: "Terrário",
+      tamanho: "Médio",
+      preco: 199,
+      planta: "Suculentas variadas",
+      cuidados: "Regar pouco, manter em local claro e evitar encharcar.",
+      descricao: "Terrário elegante, ideal para decoração e presente.",
+      foto: "img/oasis2.JPG"
+    },
+    {
+      nome: "Terrário Vida Vertical",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Plantas ornamentais verticais",
+      cuidados: "Luz indireta, umidade equilibrada e ambiente iluminado.",
+      descricao: "Design vertical moderno com visual diferenciado.",
+      foto: "img/vidavertical.JPG"
+    },
+    {
+      nome: "Terrário Vida Vertical",
+      categoria: "Terrário",
+      tamanho: "Grande",
+      preco: 259,
+      planta: "Plantas ornamentais selecionadas",
+      cuidados: "Luz indireta, rega moderada e atenção à umidade.",
+      descricao: "Peça de destaque para ambientes sofisticados.",
+      foto: "img/vidavertical2.JPG"
+    }
   ];
 
   const catalogo = document.getElementById("catalogo");
@@ -565,12 +1053,53 @@
   const preco = document.getElementById("preco");
   const empty = document.getElementById("empty");
   const toast = document.getElementById("toast");
+  const resumo = document.getElementById("resumo");
+  const abrirPdf = document.getElementById("abrirPdf");
+  const fecharPdf = document.getElementById("fecharPdf");
+  const modalPdf = document.getElementById("modalPdf");
+  const gerarPdf = document.getElementById("gerarPdf");
+  const limparSelecao = document.getElementById("limparSelecao");
+  const listaSelecaoPdf = document.getElementById("listaSelecaoPdf");
+  const tipoExportacao = document.getElementById("tipoExportacao");
+  const categoriaPdf = document.getElementById("categoriaPdf");
+
+  const selecionados = new Set();
 
   function dinheiro(valor){
     return valor.toLocaleString("pt-BR", {
-      style:"currency",
-      currency:"BRL"
+      style: "currency",
+      currency: "BRL"
     });
+  }
+
+  function normalizar(texto){
+    return String(texto || "").trim().toLowerCase();
+  }
+
+  function chaveProduto(produto){
+    return `${normalizar(produto.categoria)}|${normalizar(produto.tamanho)}|${normalizar(produto.nome)}`;
+  }
+
+  function produtosUnicos(lista){
+    const mapa = new Map();
+
+    lista.forEach(produto => {
+      const chave = chaveProduto(produto);
+
+      if(!mapa.has(chave)){
+        mapa.set(chave, produto);
+      }
+    });
+
+    return Array.from(mapa.values());
+  }
+
+  function caminhoImagem(foto){
+    try{
+      return new URL(foto, window.location.href).href;
+    }catch(erro){
+      return foto;
+    }
   }
 
   function mostrarToast(texto){
@@ -607,7 +1136,7 @@ Cuidados: ${produto.cuidados}
 
       const imagem = new Image();
       imagem.crossOrigin = "anonymous";
-      imagem.src = produto.foto;
+      imagem.src = caminhoImagem(produto.foto);
 
       imagem.onload = async function(){
         try{
@@ -625,7 +1154,9 @@ Cuidados: ${produto.cuidados}
             }
 
             await navigator.clipboard.write([
-              new ClipboardItem({ "image/png": blob })
+              new ClipboardItem({
+                "image/png": blob
+              })
             ]);
 
             mostrarToast("Imagem copiada!");
@@ -643,13 +1174,13 @@ Cuidados: ${produto.cuidados}
     }
   }
 
-  function renderizar(){
+  function obterProdutosFiltrados(){
     const termo = pesquisa.value.toLowerCase().trim();
     const cat = categoria.value;
     const tam = tamanho.value;
     const faixa = preco.value;
 
-    const filtrados = produtos.filter(produto => {
+    return produtos.filter(produto => {
       const textoProduto = `
         ${produto.nome}
         ${produto.categoria}
@@ -664,7 +1195,6 @@ Cuidados: ${produto.cuidados}
       const bateTamanho = !tam || produto.tamanho === tam;
 
       let batePreco = true;
-
       if(faixa){
         const partes = faixa.split("-");
         const min = Number(partes[0]);
@@ -674,14 +1204,87 @@ Cuidados: ${produto.cuidados}
 
       return batePesquisa && bateCategoria && bateTamanho && batePreco;
     });
+  }
+
+  function contarPorCategoriaETamanho(lista){
+    const unicos = produtosUnicos(lista);
+    const tamanhos = ["Pequeno", "Médio", "Grande"];
+
+    const resultado = {
+      "Kokedama": {Pequeno:0, Médio:0, Grande:0, total:0},
+      "Terrário": {Pequeno:0, Médio:0, Grande:0, total:0}
+    };
+
+    unicos.forEach(produto => {
+      if(resultado[produto.categoria]){
+        resultado[produto.categoria][produto.tamanho]++;
+        resultado[produto.categoria].total++;
+      }
+    });
+
+    return {resultado, tamanhos};
+  }
+
+  function renderizarResumo(){
+    const {resultado, tamanhos} = contarPorCategoriaETamanho(produtos);
+
+    resumo.innerHTML = ["Kokedama", "Terrário"].map(categoriaItem => {
+      return `
+        <div class="resumo-card">
+          <h3>${categoriaItem === "Kokedama" ? "Kokedamas" : "Terrários"} únicos: ${resultado[categoriaItem].total}</h3>
+          <div class="resumo-lista">
+            ${tamanhos.map(tam => `
+              <span class="resumo-pill">${tam}: ${resultado[categoriaItem][tam]}</span>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderizarListaSelecao(){
+    const unicos = produtosUnicos(produtos);
+
+    listaSelecaoPdf.innerHTML = unicos.map(produto => {
+      const chave = chaveProduto(produto);
+
+      return `
+        <label class="item-selecao">
+          <input type="checkbox" data-chave="${chave}" ${selecionados.has(chave) ? "checked" : ""}>
+          <span>${produto.nome} • ${produto.tamanho}</span>
+        </label>
+      `;
+    }).join("");
+
+    listaSelecaoPdf.querySelectorAll("input").forEach(input => {
+      input.addEventListener("change", () => {
+        if(input.checked){
+          selecionados.add(input.dataset.chave);
+        }else{
+          selecionados.delete(input.dataset.chave);
+        }
+
+        renderizar();
+      });
+    });
+  }
+
+  function renderizar(){
+    const filtrados = obterProdutosFiltrados();
 
     catalogo.innerHTML = "";
 
     filtrados.forEach(produto => {
+      const chave = chaveProduto(produto);
       const card = document.createElement("article");
       card.className = "card";
 
       card.innerHTML = `
+        <label class="selecionar-produto">
+          <input type="checkbox" class="check-card" ${selecionados.has(chave) ? "checked" : ""}>
+          PDF
+        </label>
+
         <img class="foto" src="${produto.foto}" alt="${produto.nome}" onerror="this.src='https://placehold.co/600x450/e8f1e5/244b35?text=Foto+nao+encontrada'">
 
         <div class="content">
@@ -706,415 +1309,356 @@ Cuidados: ${produto.cuidados}
       card.querySelector(".btn-msg").addEventListener("click", () => copiarMensagem(produto));
       card.querySelector(".btn-img").addEventListener("click", () => copiarImagem(produto));
 
+      card.querySelector(".check-card").addEventListener("change", event => {
+        if(event.target.checked){
+          selecionados.add(chave);
+        }else{
+          selecionados.delete(chave);
+        }
+
+        renderizarListaSelecao();
+      });
+
       catalogo.appendChild(card);
     });
 
     empty.style.display = filtrados.length ? "none" : "block";
   }
 
-  function abrirModalPDF(){
-    document.getElementById("modalPDF").classList.add("ativo");
-    montarListaPDF();
+  function escaparHtml(texto){
+    return String(texto || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  function fecharModalPDF(){
-    document.getElementById("modalPDF").classList.remove("ativo");
+  function obterProdutosParaPdf(){
+    const tipo = tipoExportacao.value;
+
+    if(tipo === "filtrados"){
+      return produtosUnicos(obterProdutosFiltrados());
+    }
+
+    if(tipo === "categoria"){
+      return produtosUnicos(produtos.filter(produto => produto.categoria === categoriaPdf.value));
+    }
+
+    if(tipo === "selecionados"){
+      return produtosUnicos(produtos).filter(produto => selecionados.has(chaveProduto(produto)));
+    }
+
+    return produtosUnicos(produtos);
   }
 
-  function montarListaPDF(){
-    const lista = document.getElementById("listaProdutosPDF");
-    const cat = document.getElementById("pdfCategoria").value;
-    const itens = produtos.filter(produto => !cat || produto.categoria === cat);
+  function gerarResumoPdf(lista){
+    const {resultado, tamanhos} = contarPorCategoriaETamanho(lista);
 
-    lista.innerHTML = itens.map(produto => {
-      const idOriginal = produtos.indexOf(produto);
-
+    return ["Kokedama", "Terrário"].map(categoriaItem => {
       return `
-        <label class="produto-check">
-          <input type="checkbox" class="produto-pdf-check" value="${idOriginal}" checked>
-          <span>${produto.nome} — ${produto.categoria} — ${dinheiro(produto.preco)}</span>
-        </label>
+        <div class="pdf-resumo-card">
+          <strong>${categoriaItem === "Kokedama" ? "Kokedamas" : "Terrários"}</strong>
+          <span>Total: ${resultado[categoriaItem].total}</span>
+          <div>
+            ${tamanhos.map(tam => `<em>${tam}: ${resultado[categoriaItem][tam]}</em>`).join("")}
+          </div>
+        </div>
       `;
     }).join("");
   }
 
-  function selecionarTodosPDF(){
-    document.querySelectorAll(".produto-pdf-check").forEach(check => check.checked = true);
-  }
+  function abrirJanelaPdf(){
+    const lista = obterProdutosParaPdf();
+    const mostrarValores = document.querySelector('input[name="valoresPdf"]:checked').value === "sim";
 
-  function limparSelecaoPDF(){
-    document.querySelectorAll(".produto-pdf-check").forEach(check => check.checked = false);
-  }
-
-  function nomeBase(nome){
-    return nome
-      .toLowerCase()
-      .replace("kokedama de ", "")
-      .replace("terrário ", "")
-      .replace(" especial", "")
-      .replace(" premium", "")
-      .replace(" para estante", "")
-      .replace(" grande", "")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim();
-  }
-
-  function calcularResumo(produtosSelecionados){
-    const resumo = {
-      Kokedama:{ total:0, Pequeno:0, Médio:0, Grande:0 },
-      Terrário:{ total:0, Pequeno:0, Médio:0, Grande:0 }
-    };
-
-    const vistos = new Set();
-
-    produtosSelecionados.forEach(produto => {
-      const chave = produto.categoria + "|" + nomeBase(produto.nome);
-
-      if(vistos.has(chave)) return;
-
-      vistos.add(chave);
-
-      resumo[produto.categoria].total++;
-
-      if(resumo[produto.categoria][produto.tamanho] !== undefined){
-        resumo[produto.categoria][produto.tamanho]++;
-      }
-    });
-
-    return resumo;
-  }
-
-  function montarResumoHTML(resumo){
-    return `
-      <section class="pdf-resumo">
-        <div class="resumo-card">
-          <h3>Kokedamas</h3>
-          <strong>${resumo.Kokedama.total}</strong>
-          <p>Pequenas: ${resumo.Kokedama.Pequeno} • Médias: ${resumo.Kokedama.Médio} • Grandes: ${resumo.Kokedama.Grande}</p>
-        </div>
-
-        <div class="resumo-card">
-          <h3>Terrários</h3>
-          <strong>${resumo.Terrário.total}</strong>
-          <p>Pequenos: ${resumo.Terrário.Pequeno} • Médios: ${resumo.Terrário.Médio} • Grandes: ${resumo.Terrário.Grande}</p>
-        </div>
-      </section>
-    `;
-  }
-
-  function gerarPDF(){
-    const checks = Array.from(document.querySelectorAll(".produto-pdf-check:checked"));
-    const mostrarValores = document.getElementById("pdfValores").value === "sim";
-    const incluirTextos = document.getElementById("pdfTextos").checked;
-    const agrupar = document.getElementById("pdfAgrupar").checked;
-
-    if(checks.length === 0){
-      mostrarToast("Selecione ao menos um produto.");
+    if(!lista.length){
+      mostrarToast("Nenhum produto para exportar.");
       return;
     }
 
-    const selecionados = checks.map(check => produtos[Number(check.value)]);
-    const resumo = calcularResumo(selecionados);
+    const data = new Date().toLocaleDateString("pt-BR");
 
-    let grupos = {};
+    const cards = lista.map(produto => `
+      <article class="pdf-card">
+        <img
+          src="${escaparHtml(caminhoImagem(produto.foto))}"
+          alt="${escaparHtml(produto.nome)}"
+          onerror="this.src='https://placehold.co/600x420/e8f1e5/244b35?text=Foto+nao+encontrada'"
+        >
 
-    if(agrupar){
-      selecionados.forEach(produto => {
-        if(!grupos[produto.categoria]){
-          grupos[produto.categoria] = [];
-        }
+        <div class="pdf-content">
+          <div class="pdf-tag">${escaparHtml(produto.categoria)} • ${escaparHtml(produto.tamanho)}</div>
+          <h2>${escaparHtml(produto.nome)}</h2>
+          <p class="pdf-desc">${escaparHtml(produto.descricao)}</p>
 
-        grupos[produto.categoria].push(produto);
-      });
-    }else{
-      grupos["Catálogo"] = selecionados;
-    }
+          <div class="pdf-info">
+            <p><strong>Planta/Composição:</strong> ${escaparHtml(produto.planta)}</p>
+            <p><strong>Cuidados:</strong> ${escaparHtml(produto.cuidados)}</p>
+          </div>
 
-    let conteudo = "";
+          ${mostrarValores ? `<div class="pdf-preco">${dinheiro(produto.preco)}</div>` : ""}
+        </div>
+      </article>
+    `).join("");
 
-    Object.keys(grupos).forEach(nomeGrupo => {
-      conteudo += `<h2 class="categoria-pdf">${nomeGrupo}</h2>`;
-      conteudo += `<div class="pdf-grid">`;
-
-      grupos[nomeGrupo].forEach(produto => {
-        conteudo += `
-          <article class="pdf-card">
-            <img src="${produto.foto}" alt="${produto.nome}">
-            <div class="pdf-info">
-              <span>${produto.categoria} • ${produto.tamanho}</span>
-              <h3>${produto.nome}</h3>
-
-              ${mostrarValores ? `<strong class="pdf-preco">${dinheiro(produto.preco)}</strong>` : ""}
-
-              ${incluirTextos ? `
-                <p>${produto.descricao}</p>
-                <p><b>Planta/Composição:</b> ${produto.planta}</p>
-                <p><b>Cuidados:</b> ${produto.cuidados}</p>
-              ` : ""}
-            </div>
-          </article>
-        `;
-      });
-
-      conteudo += `</div>`;
-    });
-
-    const janela = window.open("", "_blank");
-
-    janela.document.write(`
+    const htmlPdf = `
       <!doctype html>
       <html lang="pt-BR">
       <head>
         <meta charset="utf-8">
-        <title>Catálogo PDF</title>
-
+        <title>Catálogo Alma Verde</title>
         <style>
-          *{box-sizing:border-box}
+          @page{
+            size:A4;
+            margin:9mm;
+          }
+
+          *{
+            box-sizing:border-box;
+            -webkit-print-color-adjust:exact !important;
+            print-color-adjust:exact !important;
+          }
 
           body{
             margin:0;
             font-family:Arial, Helvetica, sans-serif;
-            background:#f4f7f1;
             color:#1f2a24;
+            background:#f4f7f1;
           }
 
-          .pdf-page{
-            padding:18px;
+          .pdf-wrapper{
+            padding:0;
           }
 
-          .pdf-header{
+          .pdf-capa{
             background:linear-gradient(135deg,#244b35,#3f7656);
             color:white;
-            padding:18px;
-            border-radius:20px;
+            border-radius:18px;
+            padding:16px 18px;
+            margin-bottom:10px;
             display:flex;
-            align-items:center;
-            gap:14px;
-            margin-bottom:12px;
+            justify-content:space-between;
+            gap:16px;
+            align-items:flex-end;
           }
 
-          .pdf-header img{
-            width:58px;
-            height:58px;
-            border-radius:16px;
-            object-fit:cover;
-            background:white;
+          .pdf-capa h1{
+            margin:0 0 5px;
+            font-size:24px;
+            letter-spacing:-.4px;
           }
 
-          .pdf-header h1{
+          .pdf-capa p{
             margin:0;
-            font-size:22px;
-          }
-
-          .pdf-header p{
-            margin:5px 0 0;
             color:#e8f2e8;
             font-size:12px;
+            line-height:1.4;
           }
 
-          .pdf-note{
-            background:white;
-            border-left:5px solid #c89f5d;
-            padding:10px 13px;
-            border-radius:13px;
-            margin-bottom:12px;
-            color:#4d5b51;
+          .pdf-data{
+            text-align:right;
             font-size:11px;
+            color:#e8f2e8;
+            white-space:nowrap;
           }
 
           .pdf-resumo{
             display:grid;
             grid-template-columns:1fr 1fr;
-            gap:10px;
-            margin-bottom:12px;
+            gap:8px;
+            margin-bottom:10px;
           }
 
-          .resumo-card{
+          .pdf-resumo-card{
             background:white;
-            border:1px solid #dce8d8;
-            border-radius:16px;
-            padding:12px;
+            border:1px solid rgba(36,75,53,.14);
+            border-radius:14px;
+            padding:9px 10px;
           }
 
-          .resumo-card h3{
-            margin:0 0 5px;
-            color:#244b35;
-            font-size:15px;
-          }
-
-          .resumo-card strong{
+          .pdf-resumo-card strong{
             display:block;
-            font-size:24px;
             color:#244b35;
-            margin-bottom:4px;
+            font-size:13px;
+            margin-bottom:3px;
           }
 
-          .resumo-card p{
-            margin:0;
-            color:#526057;
+          .pdf-resumo-card span{
+            display:block;
             font-size:11px;
+            color:#66756b;
+            margin-bottom:5px;
           }
 
-          .categoria-pdf{
+          .pdf-resumo-card div{
+            display:flex;
+            flex-wrap:wrap;
+            gap:5px;
+          }
+
+          .pdf-resumo-card em{
+            font-style:normal;
+            background:#eaf2e7;
             color:#244b35;
-            font-size:18px;
-            margin:12px 0 8px;
-            border-bottom:1px solid #dce8d8;
-            padding-bottom:5px;
+            padding:4px 6px;
+            border-radius:999px;
+            font-size:10px;
+            font-weight:bold;
           }
 
           .pdf-grid{
             display:grid;
             grid-template-columns:1fr 1fr;
-            gap:10px;
+            gap:8px;
           }
 
           .pdf-card{
+            height:118mm;
             background:white;
+            border:1px solid rgba(36,75,53,.14);
             border-radius:16px;
             overflow:hidden;
-            border:1px solid #dce8d8;
-            break-inside:avoid;
+            display:flex;
+            flex-direction:column;
             page-break-inside:avoid;
+            break-inside:avoid;
           }
 
           .pdf-card img{
             width:100%;
-            height:112px;
+            height:46mm;
             object-fit:cover;
-            background:#dfe8dc;
             display:block;
+            background:#dfe8dc;
           }
 
-          .pdf-info{
-            padding:10px;
+          .pdf-content{
+            padding:8px 10px 9px;
+            display:flex;
+            flex-direction:column;
+            flex:1;
           }
 
-          .pdf-info span{
-            display:inline-block;
+          .pdf-tag{
+            width:max-content;
+            max-width:100%;
             background:#eaf2e7;
             color:#244b35;
-            padding:4px 8px;
             border-radius:999px;
+            padding:4px 7px;
             font-size:9px;
             font-weight:bold;
             margin-bottom:5px;
           }
 
-          .pdf-info h3{
-            margin:0 0 5px;
-            font-size:13px;
-            line-height:1.2;
+          .pdf-card h2{
+            margin:0 0 4px;
             color:#244b35;
+            font-size:14px;
+            line-height:1.15;
           }
 
-          .pdf-preco{
-            display:block;
-            color:#244b35;
-            font-size:15px;
-            margin-bottom:5px;
+          .pdf-desc{
+            margin:0 0 5px;
+            color:#66756b;
+            font-size:10.5px;
+            line-height:1.28;
+          }
+
+          .pdf-info{
+            display:grid;
+            gap:3px;
+            font-size:9.5px;
+            line-height:1.25;
+            color:#1f2a24;
           }
 
           .pdf-info p{
-            margin:4px 0;
-            color:#526057;
-            font-size:9.5px;
-            line-height:1.25;
+            margin:0;
           }
 
-          .pdf-footer{
-            margin-top:18px;
+          .pdf-preco{
+            margin-top:auto;
+            color:#244b35;
+            font-size:17px;
+            font-weight:bold;
+          }
+
+          .pdf-rodape{
+            margin-top:10px;
             text-align:center;
             color:#66756b;
             font-size:10px;
           }
 
           @media print{
-            body{background:white}
-            .pdf-page{padding:0}
-            .pdf-card{box-shadow:none}
-          }
+            body{
+              background:white;
+            }
 
-          @page{
-            size:A4;
-            margin:8mm;
+            .pdf-capa{
+              margin-top:0;
+            }
           }
         </style>
       </head>
-
       <body>
-        <main class="pdf-page">
-          <section class="pdf-header">
-            <img src="img/logo.png" alt="Logo">
+        <main class="pdf-wrapper">
+          <section class="pdf-capa">
             <div>
               <h1>Catálogo de Kokedamas e Terrários</h1>
-              <p>Peças artesanais, naturais e selecionadas para presentear ou decorar.</p>
+              <p>Peças artesanais selecionadas para presentear, decorar e trazer natureza para os ambientes.</p>
+            </div>
+            <div class="pdf-data">
+              Atualizado em<br>
+              <strong>${data}</strong>
             </div>
           </section>
 
-          <div class="pdf-note">
-            Catálogo preparado para envio ao cliente. Consulte disponibilidade das peças antes da confirmação do pedido.
-          </div>
+          <section class="pdf-resumo">
+            ${gerarResumoPdf(lista)}
+          </section>
 
-          ${montarResumoHTML(resumo)}
+          <section class="pdf-grid">
+            ${cards}
+          </section>
 
-          ${conteudo}
-
-          <div class="pdf-footer">
-            Catálogo gerado automaticamente • Peças artesanais sujeitas à disponibilidade
+          <div class="pdf-rodape">
+            Catálogo artesanal • Consulte disponibilidade antes da confirmação do pedido.
           </div>
         </main>
 
         <script>
-          function imprimirDepoisDasImagens(){
-            const imagens = Array.from(document.images);
+          const imagens = Array.from(document.images);
 
-            if(imagens.length === 0){
-              window.print();
-              return;
-            }
+          Promise.all(imagens.map(img => {
+            if(img.complete) return Promise.resolve();
 
-            let carregadas = 0;
-            let jaImprimiu = false;
-
-            function imprimir(){
-              if(jaImprimiu) return;
-              jaImprimiu = true;
-
-              setTimeout(function(){
-                window.print();
-              }, 700);
-            }
-
-            function verificar(){
-              carregadas++;
-
-              if(carregadas >= imagens.length){
-                imprimir();
-              }
-            }
-
-            imagens.forEach(function(img){
-              if(img.complete){
-                verificar();
-              }else{
-                img.onload = verificar;
-                img.onerror = verificar;
-              }
+            return new Promise(resolve => {
+              img.onload = resolve;
+              img.onerror = resolve;
             });
-
-            setTimeout(imprimir, 6000);
-          }
-
-          window.onload = imprimirDepoisDasImagens;
+          })).then(() => {
+            setTimeout(() => {
+              window.print();
+            }, 500);
+          });
         <\/script>
       </body>
       </html>
-    `);
+    `;
 
+    const janela = window.open("", "_blank");
+
+    if(!janela){
+      mostrarToast("Permita pop-ups para gerar o PDF.");
+      return;
+    }
+
+    janela.document.open();
+    janela.document.write(htmlPdf);
     janela.document.close();
-    fecharModalPDF();
   }
 
   pesquisa.addEventListener("input", renderizar);
@@ -1122,6 +1666,37 @@ Cuidados: ${produto.cuidados}
   tamanho.addEventListener("change", renderizar);
   preco.addEventListener("change", renderizar);
 
+  abrirPdf.addEventListener("click", () => {
+    renderizarListaSelecao();
+    modalPdf.classList.add("show");
+  });
+
+  fecharPdf.addEventListener("click", () => {
+    modalPdf.classList.remove("show");
+  });
+
+  modalPdf.addEventListener("click", event => {
+    if(event.target === modalPdf){
+      modalPdf.classList.remove("show");
+    }
+  });
+
+  limparSelecao.addEventListener("click", () => {
+    selecionados.clear();
+    renderizarListaSelecao();
+    renderizar();
+    mostrarToast("Seleção limpa.");
+  });
+
+  gerarPdf.addEventListener("click", abrirJanelaPdf);
+
+  tipoExportacao.addEventListener("change", () => {
+    categoriaPdf.disabled = tipoExportacao.value !== "categoria";
+  });
+
+  categoriaPdf.disabled = true;
+
+  renderizarResumo();
   renderizar();
 </script>
 
