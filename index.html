@@ -254,9 +254,7 @@
       overflow:auto;
     }
 
-    .modal.ativo{
-      display:flex;
-    }
+    .modal.ativo{display:flex}
 
     .modal-box{
       width:100%;
@@ -304,6 +302,26 @@
       margin-bottom:16px;
     }
 
+    .opcoes-pdf{
+      display:grid;
+      gap:10px;
+      margin:15px 0;
+      padding:14px;
+      border-radius:18px;
+      background:#f8fbf6;
+      border:1px solid rgba(36,75,53,.14);
+    }
+
+    .opcoes-pdf label{
+      display:flex;
+      gap:9px;
+      align-items:center;
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .opcoes-pdf input{width:auto}
+
     .check-area{
       border:1px solid rgba(36,75,53,.14);
       background:#f8fbf6;
@@ -321,9 +339,7 @@
       margin-bottom:12px;
     }
 
-    .check-top strong{
-      color:var(--green);
-    }
+    .check-top strong{color:var(--green)}
 
     .small-actions{
       display:flex;
@@ -348,26 +364,6 @@
 
     .produto-check:last-child{border-bottom:0}
     .produto-check input{width:auto}
-
-    .opcoes-pdf{
-      display:grid;
-      gap:10px;
-      margin:15px 0;
-      padding:14px;
-      border-radius:18px;
-      background:#f8fbf6;
-      border:1px solid rgba(36,75,53,.14);
-    }
-
-    .opcoes-pdf label{
-      display:flex;
-      gap:9px;
-      align-items:center;
-      color:var(--text);
-      font-size:14px;
-    }
-
-    .opcoes-pdf input{width:auto}
 
     .acoes-exportar{
       display:grid;
@@ -484,6 +480,7 @@
         <input type="checkbox" id="pdfTextos" checked>
         Incluir textos, plantas/composição e cuidados
       </label>
+
       <label>
         <input type="checkbox" id="pdfAgrupar" checked>
         Separar por categoria no PDF
@@ -570,7 +567,10 @@
   const toast = document.getElementById("toast");
 
   function dinheiro(valor){
-    return valor.toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
+    return valor.toLocaleString("pt-BR", {
+      style:"currency",
+      currency:"BRL"
+    });
   }
 
   function mostrarToast(texto){
@@ -650,13 +650,21 @@ Cuidados: ${produto.cuidados}
     const faixa = preco.value;
 
     const filtrados = produtos.filter(produto => {
-      const textoProduto = `${produto.nome} ${produto.categoria} ${produto.tamanho} ${produto.planta} ${produto.preco} ${produto.descricao}`.toLowerCase();
+      const textoProduto = `
+        ${produto.nome}
+        ${produto.categoria}
+        ${produto.tamanho}
+        ${produto.planta}
+        ${produto.preco}
+        ${produto.descricao}
+      `.toLowerCase();
 
       const batePesquisa = textoProduto.includes(termo);
       const bateCategoria = !cat || produto.categoria === cat;
       const bateTamanho = !tam || produto.tamanho === tam;
 
       let batePreco = true;
+
       if(faixa){
         const partes = faixa.split("-");
         const min = Number(partes[0]);
@@ -675,6 +683,7 @@ Cuidados: ${produto.cuidados}
 
       card.innerHTML = `
         <img class="foto" src="${produto.foto}" alt="${produto.nome}" onerror="this.src='https://placehold.co/600x450/e8f1e5/244b35?text=Foto+nao+encontrada'">
+
         <div class="content">
           <span class="tag">${produto.categoria} • ${produto.tamanho}</span>
           <h3>${produto.nome}</h3>
@@ -737,9 +746,11 @@ Cuidados: ${produto.cuidados}
     document.querySelectorAll(".produto-pdf-check").forEach(check => check.checked = false);
   }
 
-  function nomeUnico(nome){
+  function nomeBase(nome){
     return nome
       .toLowerCase()
+      .replace("kokedama de ", "")
+      .replace("terrário ", "")
       .replace(" especial", "")
       .replace(" premium", "")
       .replace(" para estante", "")
@@ -758,7 +769,7 @@ Cuidados: ${produto.cuidados}
     const vistos = new Set();
 
     produtosSelecionados.forEach(produto => {
-      const chave = produto.categoria + "|" + nomeUnico(produto.nome);
+      const chave = produto.categoria + "|" + nomeBase(produto.nome);
 
       if(vistos.has(chave)) return;
 
@@ -813,6 +824,7 @@ Cuidados: ${produto.cuidados}
         if(!grupos[produto.categoria]){
           grupos[produto.categoria] = [];
         }
+
         grupos[produto.categoria].push(produto);
       });
     }else{
@@ -832,7 +844,9 @@ Cuidados: ${produto.cuidados}
             <div class="pdf-info">
               <span>${produto.categoria} • ${produto.tamanho}</span>
               <h3>${produto.nome}</h3>
+
               ${mostrarValores ? `<strong class="pdf-preco">${dinheiro(produto.preco)}</strong>` : ""}
+
               ${incluirTextos ? `
                 <p>${produto.descricao}</p>
                 <p><b>Planta/Composição:</b> ${produto.planta}</p>
@@ -1062,14 +1076,22 @@ Cuidados: ${produto.cuidados}
             }
 
             let carregadas = 0;
+            let jaImprimiu = false;
+
+            function imprimir(){
+              if(jaImprimiu) return;
+              jaImprimiu = true;
+
+              setTimeout(function(){
+                window.print();
+              }, 700);
+            }
 
             function verificar(){
               carregadas++;
 
               if(carregadas >= imagens.length){
-                setTimeout(function(){
-                  window.print();
-                }, 500);
+                imprimir();
               }
             }
 
@@ -1082,9 +1104,7 @@ Cuidados: ${produto.cuidados}
               }
             });
 
-            setTimeout(function(){
-              window.print();
-            }, 5000);
+            setTimeout(imprimir, 6000);
           }
 
           window.onload = imprimirDepoisDasImagens;
