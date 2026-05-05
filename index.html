@@ -53,9 +53,7 @@
       object-fit:cover;
     }
 
-    .brand{
-      flex:1;
-    }
+    .brand{flex:1}
 
     .brand h1{
       margin:0;
@@ -106,7 +104,7 @@
 
     .resumo{
       display:grid;
-      grid-template-columns:repeat(2,1fr);
+      grid-template-columns:repeat(3,1fr);
       gap:14px;
       margin-bottom:18px;
     }
@@ -317,9 +315,7 @@
       z-index:100;
     }
 
-    .modal.show{
-      display:flex;
-    }
+    .modal.show{display:flex}
 
     .modal-box{
       width:min(680px,100%);
@@ -384,10 +380,7 @@
       margin-bottom:8px;
     }
 
-    .checks{
-      display:grid;
-      gap:8px;
-    }
+    .checks{display:grid;gap:8px}
 
     .check-linha{
       display:flex;
@@ -456,11 +449,7 @@
     }
 
     @media(max-width:620px){
-      .topo{
-        padding:12px;
-        flex-wrap:wrap;
-      }
-
+      .topo{padding:12px;flex-wrap:wrap}
       .logo{width:50px;height:50px}
       .brand h1{font-size:17px}
       .btn-exportar{width:100%}
@@ -492,7 +481,7 @@
 <main class="container">
 
   <section class="hero">
-    <h2>Catálogo de Kokedamas e Terrários</h2>
+    <h2>Catálogo de Kokedamas, Terrários e Suportes</h2>
     <p>Pesquise, filtre por categoria, copie a mensagem pronta e envie ao cliente.</p>
   </section>
 
@@ -505,13 +494,18 @@
       <option value="">Todas as categorias</option>
       <option value="Kokedama">Kokedamas</option>
       <option value="Terrário">Terrários</option>
+      <option value="Suporte">Suportes</option>
     </select>
 
     <select id="tamanho">
-      <option value="">Todos os tamanhos</option>
+      <option value="">Todos os tamanhos/tipos</option>
       <option value="Pequeno">Pequeno</option>
       <option value="Médio">Médio</option>
       <option value="Grande">Grande</option>
+      <option value="Ferro">Ferro</option>
+      <option value="Madeira">Madeira</option>
+      <option value="Suspenso">Suspenso</option>
+      <option value="Prato">Prato</option>
     </select>
 
     <select id="preco">
@@ -553,6 +547,7 @@
         <select id="categoriaPdf">
           <option value="Kokedama">Kokedamas</option>
           <option value="Terrário">Terrários</option>
+          <option value="Suporte">Suportes</option>
         </select>
       </div>
 
@@ -573,7 +568,7 @@
       <div class="campo-opcao">
         <label>Observação</label>
         <p style="margin:0;color:var(--muted);font-size:13px;line-height:1.45;">
-          O PDF terá resumo de quantidades, textos das plantas, cuidados e visual compacto com cerca de 6 itens por folha.
+          O PDF terá resumo de quantidades, textos, cuidados e visual compacto.
         </p>
       </div>
     </div>
@@ -1043,6 +1038,46 @@
       cuidados: "Luz indireta, rega moderada e atenção à umidade.",
       descricao: "Peça de destaque para ambientes sofisticados.",
       foto: "img/vidavertical2.JPG"
+    },
+    {
+      nome: "Suporte de Ferro para Kokedama",
+      categoria: "Suporte",
+      tamanho: "Ferro",
+      preco: 49,
+      planta: "Suporte de ferro",
+      cuidados: "Limpar com pano seco ou levemente úmido. Evitar exposição direta à chuva.",
+      descricao: "Suporte resistente e elegante para valorizar a kokedama em mesas, aparadores e balcões.",
+      foto: "img/suporte-ferro.JPG"
+    },
+    {
+      nome: "Suporte de Madeira para Kokedama",
+      categoria: "Suporte",
+      tamanho: "Madeira",
+      preco: 59,
+      planta: "Suporte de madeira",
+      cuidados: "Limpar com pano seco e evitar contato constante com água.",
+      descricao: "Base artesanal em madeira com visual natural, ideal para composições aconchegantes.",
+      foto: "img/suporte-madeira.JPG"
+    },
+    {
+      nome: "Suporte Suspenso para Kokedama",
+      categoria: "Suporte",
+      tamanho: "Suspenso",
+      preco: 39,
+      planta: "Suporte suspenso",
+      cuidados: "Verificar o ponto de fixação antes de pendurar. Evitar excesso de peso.",
+      descricao: "Opção charmosa para pendurar kokedamas e criar uma decoração aérea cheia de verde.",
+      foto: "img/suporte-suspenso.JPG"
+    },
+    {
+      nome: "Prato para Kokedama",
+      categoria: "Suporte",
+      tamanho: "Prato",
+      preco: 29,
+      planta: "Prato/base para kokedama",
+      cuidados: "Limpar após as regas e evitar acúmulo prolongado de água.",
+      descricao: "Prato decorativo para apoiar kokedamas com praticidade, proteção e acabamento bonito.",
+      foto: "img/prato-kokedama.JPG"
     }
   ];
 
@@ -1064,6 +1099,7 @@
   const categoriaPdf = document.getElementById("categoriaPdf");
 
   const selecionados = new Set();
+  const categoriasResumo = ["Kokedama", "Terrário", "Suporte"];
 
   function dinheiro(valor){
     return valor.toLocaleString("pt-BR", {
@@ -1085,7 +1121,6 @@
 
     lista.forEach(produto => {
       const chave = chaveProduto(produto);
-
       if(!mapa.has(chave)){
         mapa.set(chave, produto);
       }
@@ -1113,7 +1148,7 @@
 
 ${produto.nome}
 Valor: ${dinheiro(produto.preco)}
-Tamanho: ${produto.tamanho}
+Tipo/Tamanho: ${produto.tamanho}
 
 ${produto.descricao}
 
@@ -1206,35 +1241,45 @@ Cuidados: ${produto.cuidados}
     });
   }
 
-  function contarPorCategoriaETamanho(lista){
+  function contarPorCategoriaETipo(lista){
     const unicos = produtosUnicos(lista);
-    const tamanhos = ["Pequeno", "Médio", "Grande"];
+    const resultado = {};
 
-    const resultado = {
-      "Kokedama": {Pequeno:0, Médio:0, Grande:0, total:0},
-      "Terrário": {Pequeno:0, Médio:0, Grande:0, total:0}
-    };
-
-    unicos.forEach(produto => {
-      if(resultado[produto.categoria]){
-        resultado[produto.categoria][produto.tamanho]++;
-        resultado[produto.categoria].total++;
-      }
+    categoriasResumo.forEach(cat => {
+      resultado[cat] = {total:0, itens:{}};
     });
 
-    return {resultado, tamanhos};
+    unicos.forEach(produto => {
+      if(!resultado[produto.categoria]){
+        resultado[produto.categoria] = {total:0, itens:{}};
+      }
+
+      resultado[produto.categoria].total++;
+      resultado[produto.categoria].itens[produto.tamanho] = (resultado[produto.categoria].itens[produto.tamanho] || 0) + 1;
+    });
+
+    return resultado;
+  }
+
+  function nomeCategoriaPlural(cat){
+    if(cat === "Kokedama") return "Kokedamas";
+    if(cat === "Terrário") return "Terrários";
+    if(cat === "Suporte") return "Suportes";
+    return cat;
   }
 
   function renderizarResumo(){
-    const {resultado, tamanhos} = contarPorCategoriaETamanho(produtos);
+    const resultado = contarPorCategoriaETipo(produtos);
 
-    resumo.innerHTML = ["Kokedama", "Terrário"].map(categoriaItem => {
+    resumo.innerHTML = categoriasResumo.map(cat => {
+      const itens = Object.keys(resultado[cat].itens);
+
       return `
         <div class="resumo-card">
-          <h3>${categoriaItem === "Kokedama" ? "Kokedamas" : "Terrários"} únicos: ${resultado[categoriaItem].total}</h3>
+          <h3>${nomeCategoriaPlural(cat)} únicos: ${resultado[cat].total}</h3>
           <div class="resumo-lista">
-            ${tamanhos.map(tam => `
-              <span class="resumo-pill">${tam}: ${resultado[categoriaItem][tam]}</span>
+            ${itens.map(item => `
+              <span class="resumo-pill">${item}: ${resultado[cat].itens[item]}</span>
             `).join("")}
           </div>
         </div>
@@ -1271,7 +1316,6 @@ Cuidados: ${produto.cuidados}
 
   function renderizar(){
     const filtrados = obterProdutosFiltrados();
-
     catalogo.innerHTML = "";
 
     filtrados.forEach(produto => {
@@ -1293,7 +1337,7 @@ Cuidados: ${produto.cuidados}
           <p class="desc">${produto.descricao}</p>
 
           <div class="info">
-            <div><strong>Planta/Composição:</strong> ${produto.planta}</div>
+            <div><strong>${produto.categoria === "Suporte" ? "Tipo/Material" : "Planta/Composição"}:</strong> ${produto.planta}</div>
             <div><strong>Cuidados:</strong> ${produto.cuidados}</div>
           </div>
 
@@ -1353,15 +1397,17 @@ Cuidados: ${produto.cuidados}
   }
 
   function gerarResumoPdf(lista){
-    const {resultado, tamanhos} = contarPorCategoriaETamanho(lista);
+    const resultado = contarPorCategoriaETipo(lista);
 
-    return ["Kokedama", "Terrário"].map(categoriaItem => {
+    return categoriasResumo.map(cat => {
+      const itens = Object.keys(resultado[cat].itens);
+
       return `
         <div class="pdf-resumo-card">
-          <strong>${categoriaItem === "Kokedama" ? "Kokedamas" : "Terrários"}</strong>
-          <span>Total: ${resultado[categoriaItem].total}</span>
+          <strong>${nomeCategoriaPlural(cat)}</strong>
+          <span>Total: ${resultado[cat].total}</span>
           <div>
-            ${tamanhos.map(tam => `<em>${tam}: ${resultado[categoriaItem][tam]}</em>`).join("")}
+            ${itens.map(item => `<em>${item}: ${resultado[cat].itens[item]}</em>`).join("")}
           </div>
         </div>
       `;
@@ -1381,11 +1427,13 @@ Cuidados: ${produto.cuidados}
 
     const cards = lista.map(produto => `
       <article class="pdf-card">
-        <img
-          src="${escaparHtml(caminhoImagem(produto.foto))}"
-          alt="${escaparHtml(produto.nome)}"
-          onerror="this.src='https://placehold.co/600x420/e8f1e5/244b35?text=Foto+nao+encontrada'"
-        >
+        <div class="pdf-img-box">
+          <img
+            src="${escaparHtml(caminhoImagem(produto.foto))}"
+            alt="${escaparHtml(produto.nome)}"
+            onerror="this.src='https://placehold.co/600x420/e8f1e5/244b35?text=Foto+nao+encontrada'"
+          >
+        </div>
 
         <div class="pdf-content">
           <div class="pdf-tag">${escaparHtml(produto.categoria)} • ${escaparHtml(produto.tamanho)}</div>
@@ -1393,7 +1441,7 @@ Cuidados: ${produto.cuidados}
           <p class="pdf-desc">${escaparHtml(produto.descricao)}</p>
 
           <div class="pdf-info">
-            <p><strong>Planta/Composição:</strong> ${escaparHtml(produto.planta)}</p>
+            <p><strong>${produto.categoria === "Suporte" ? "Tipo/Material" : "Planta/Composição"}:</strong> ${escaparHtml(produto.planta)}</p>
             <p><strong>Cuidados:</strong> ${escaparHtml(produto.cuidados)}</p>
           </div>
 
@@ -1427,16 +1475,12 @@ Cuidados: ${produto.cuidados}
             background:#f4f7f1;
           }
 
-          .pdf-wrapper{
-            padding:0;
-          }
-
           .pdf-capa{
             background:linear-gradient(135deg,#244b35,#3f7656);
             color:white;
             border-radius:18px;
-            padding:16px 18px;
-            margin-bottom:10px;
+            padding:15px 18px;
+            margin-bottom:9px;
             display:flex;
             justify-content:space-between;
             gap:16px;
@@ -1445,7 +1489,7 @@ Cuidados: ${produto.cuidados}
 
           .pdf-capa h1{
             margin:0 0 5px;
-            font-size:24px;
+            font-size:23px;
             letter-spacing:-.4px;
           }
 
@@ -1453,7 +1497,7 @@ Cuidados: ${produto.cuidados}
             margin:0;
             color:#e8f2e8;
             font-size:12px;
-            line-height:1.4;
+            line-height:1.35;
           }
 
           .pdf-data{
@@ -1465,28 +1509,28 @@ Cuidados: ${produto.cuidados}
 
           .pdf-resumo{
             display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:8px;
-            margin-bottom:10px;
+            grid-template-columns:1fr 1fr 1fr;
+            gap:7px;
+            margin-bottom:9px;
           }
 
           .pdf-resumo-card{
             background:white;
             border:1px solid rgba(36,75,53,.14);
             border-radius:14px;
-            padding:9px 10px;
+            padding:8px 9px;
           }
 
           .pdf-resumo-card strong{
             display:block;
             color:#244b35;
-            font-size:13px;
+            font-size:12px;
             margin-bottom:3px;
           }
 
           .pdf-resumo-card span{
             display:block;
-            font-size:11px;
+            font-size:10px;
             color:#66756b;
             margin-bottom:5px;
           }
@@ -1494,16 +1538,16 @@ Cuidados: ${produto.cuidados}
           .pdf-resumo-card div{
             display:flex;
             flex-wrap:wrap;
-            gap:5px;
+            gap:4px;
           }
 
           .pdf-resumo-card em{
             font-style:normal;
             background:#eaf2e7;
             color:#244b35;
-            padding:4px 6px;
+            padding:3px 5px;
             border-radius:999px;
-            font-size:10px;
+            font-size:9px;
             font-weight:bold;
           }
 
@@ -1525,16 +1569,26 @@ Cuidados: ${produto.cuidados}
             break-inside:avoid;
           }
 
-          .pdf-card img{
+          .pdf-img-box{
             width:100%;
-            height:46mm;
-            object-fit:cover;
+            height:47mm;
+            background:#eef4eb;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:3mm;
+            border-bottom:1px solid rgba(36,75,53,.08);
+          }
+
+          .pdf-img-box img{
+            width:100%;
+            height:100%;
+            object-fit:contain;
             display:block;
-            background:#dfe8dc;
           }
 
           .pdf-content{
-            padding:8px 10px 9px;
+            padding:7px 9px 8px;
             display:flex;
             flex-direction:column;
             flex:1;
@@ -1549,28 +1603,28 @@ Cuidados: ${produto.cuidados}
             padding:4px 7px;
             font-size:9px;
             font-weight:bold;
-            margin-bottom:5px;
+            margin-bottom:4px;
           }
 
           .pdf-card h2{
-            margin:0 0 4px;
+            margin:0 0 3px;
             color:#244b35;
-            font-size:14px;
-            line-height:1.15;
+            font-size:13.5px;
+            line-height:1.12;
           }
 
           .pdf-desc{
-            margin:0 0 5px;
+            margin:0 0 4px;
             color:#66756b;
-            font-size:10.5px;
-            line-height:1.28;
+            font-size:10px;
+            line-height:1.22;
           }
 
           .pdf-info{
             display:grid;
             gap:3px;
-            font-size:9.5px;
-            line-height:1.25;
+            font-size:9.2px;
+            line-height:1.2;
             color:#1f2a24;
           }
 
@@ -1581,7 +1635,7 @@ Cuidados: ${produto.cuidados}
           .pdf-preco{
             margin-top:auto;
             color:#244b35;
-            font-size:17px;
+            font-size:16px;
             font-weight:bold;
           }
 
@@ -1593,21 +1647,16 @@ Cuidados: ${produto.cuidados}
           }
 
           @media print{
-            body{
-              background:white;
-            }
-
-            .pdf-capa{
-              margin-top:0;
-            }
+            body{background:white}
+            .pdf-capa{margin-top:0}
           }
         </style>
       </head>
       <body>
-        <main class="pdf-wrapper">
+        <main>
           <section class="pdf-capa">
             <div>
-              <h1>Catálogo de Kokedamas e Terrários</h1>
+              <h1>Catálogo de Kokedamas, Terrários e Suportes</h1>
               <p>Peças artesanais selecionadas para presentear, decorar e trazer natureza para os ambientes.</p>
             </div>
             <div class="pdf-data">
